@@ -1,0 +1,282 @@
+/* 简洁大方的登录页面样式 */
+.container {
+  min-height: 100vh;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.box {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #e2e8f0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.header h2 {
+  color: #1e293b;
+  font-size: 28px;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+/* Ant Design 组件样式覆盖 */
+.box :global(.ant-tabs) {
+  margin-bottom: 24px;
+}
+
+.box :global(.ant-tabs-tab) {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 24px;
+  transition: all 0.2s ease;
+}
+
+.box :global(.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn) {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.box :global(.ant-tabs-ink-bar) {
+  background: #3b82f6;
+  height: 2px;
+}
+
+.box :global(.ant-form-item) {
+  margin-bottom: 20px;
+}
+
+.box :global(.ant-input-affix-wrapper) {
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 12px 16px;
+  font-size: 15px;
+  height: 48px;
+  transition: all 0.2s ease;
+  background: #ffffff;
+}
+
+.box :global(.ant-input-affix-wrapper:hover) {
+  border-color: #9ca3af;
+}
+
+.box :global(.ant-input-affix-wrapper-focused) {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.box :global(.ant-input) {
+  font-size: 15px;
+  background: transparent;
+}
+
+.box :global(.ant-input::placeholder) {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.box :global(.ant-input-prefix) {
+  color: #6b7280;
+  margin-right: 12px;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.box :global(.ant-checkbox-wrapper) {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.box :global(.ant-checkbox-checked .ant-checkbox-inner) {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.forgotPassword {
+  color: #3b82f6;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.forgotPassword:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.button {
+  height: 48px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #3b82f6;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  background: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.otherLogin {
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.otherLoginText {
+  color: #9ca3af;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.otherLoginIcons {
+  display: flex;
+  gap: 12px;
+}
+
+.loginIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.loginIcon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+.loginIcon.alipay {
+  color: #1677ff;
+}
+
+.loginIcon.alipay:hover {
+  background: #1677ff;
+  color: white;
+  border-color: #1677ff;
+}
+
+.loginIcon.taobao {
+  color: #ff6900;
+}
+
+.loginIcon.taobao:hover {
+  background: #ff6900;
+  color: white;
+  border-color: #ff6900;
+}
+
+.loginIcon.weibo {
+  color: #e6162d;
+}
+
+.loginIcon.weibo:hover {
+  background: #e6162d;
+  color: white;
+  border-color: #e6162d;
+}
+
+/* 响应式设计 */
+@media (max-width: 480px) {
+  .container {
+    padding: 16px;
+  }
+  
+  .box {
+    padding: 32px 24px;
+    max-width: 360px;
+  }
+  
+  .header {
+    margin-bottom: 24px;
+  }
+  
+  .header h2 {
+    font-size: 24px;
+  }
+  
+  .box :global(.ant-tabs) {
+    margin-bottom: 20px;
+  }
+  
+  .box :global(.ant-tabs-tab) {
+    font-size: 15px;
+    padding: 10px 20px;
+  }
+  
+  .box :global(.ant-form-item) {
+    margin-bottom: 16px;
+  }
+  
+  .box :global(.ant-input-affix-wrapper) {
+    padding: 12px 14px;
+    font-size: 14px;
+    height: 44px;
+  }
+  
+  .button {
+    height: 44px;
+    font-size: 15px;
+  }
+  
+  .options {
+    margin-bottom: 20px;
+  }
+  
+  .otherLogin {
+    margin-top: 24px;
+    padding-top: 20px;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .otherLoginIcons {
+    gap: 8px;
+  }
+  
+  .loginIcon {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+}

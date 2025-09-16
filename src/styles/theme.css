@@ -1,0 +1,135 @@
+/* 蓝色主题配置 - 蓝色作为主色调和强调色 */
+:root {
+  /* 主色调 - 蓝色系（用于按钮、链接、选中状态等） */
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-active: #1d4ed8;
+  --primary-light: #dbeafe;
+  --primary-lighter: #eff6ff;
+  
+  /* 辅助色 */
+  --secondary-color: #64748b;
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --error-color: #dc2626;
+  --info-color: #7c3aed;
+  
+  /* 中性色 */
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-tertiary: #9ca3af;
+  --text-disabled: #d1d5db;
+  
+  /* 背景色 - 以白色和浅灰为主 */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  
+  /* 边框色 */
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
+  --border-tertiary: #9ca3af;
+  
+  /* 阴影 */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* 覆盖 Ant Design 默认主题色 */
+.ant-btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.ant-btn-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.ant-btn-primary:focus {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.ant-menu-item-selected {
+  background-color: var(--primary-lighter) !important;
+  color: var(--primary-color) !important;
+}
+
+.ant-menu-item-selected::after {
+  border-right-color: var(--primary-color) !important;
+}
+
+.ant-menu-item:hover {
+  background-color: var(--primary-lighter) !important;
+  color: var(--primary-color) !important;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--primary-color);
+}
+
+.ant-tabs-ink-bar {
+  background-color: var(--primary-color);
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.ant-radio-checked .ant-radio-inner {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.ant-switch-checked {
+  background-color: var(--primary-color);
+}
+
+.ant-slider-track {
+  background-color: var(--primary-color);
+}
+
+.ant-slider-handle {
+  border-color: var(--primary-color);
+}
+
+.ant-progress-bg {
+  background-color: var(--primary-color);
+}
+
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* 链接颜色 */
+a {
+  color: var(--primary-color);
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+/* 选中文本颜色 */
+::selection {
+  background-color: var(--primary-light);
+}
+
+/* 滚动条颜色 */
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-hover);
+}
