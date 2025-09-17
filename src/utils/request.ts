@@ -10,16 +10,17 @@ const request = axios.create({
 // 添加请求拦截器
 request.interceptors.request.use(
     (config) => {
-        // 请求地址携带时间戳
-        const _t = new Date().getTime()
-        config.url += `?${_t}`
+        // 请求地址携带时间戳（只对非 mock 接口添加时间戳）
+        if (!config.url?.includes('/api/')) {
+            const _t = new Date().getTime()
+            config.url += `?${_t}`
+        }
 
         // 请求头携带token
         config.headers['token'] = localStorage.getItem('token') || ''
 
         // 在发送请求之前做些什么
-        // console.log('我要准备请求啦------')
-        // console.log(config, '请求配置')
+        console.log('发送请求:', config.url, config.method, config.data)
 
         return config;
     },
@@ -35,6 +36,9 @@ request.interceptors.response.use(
         // 对响应数据做点什么
         // console.log('我接收到响应数据啦------')
         // console.log(response, '响应配置')
+        console.log('响应拦截器接收到响应:', response);
+        console.log('响应状态:', response.status);
+        console.log('响应数据:', response.data);
         if (response.status === 200) {
             return Promise.resolve(response.data)
         } else {

@@ -1,87 +1,248 @@
 // mock/user.ts
 
+
+
+const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
+
+/**
+ * 当前用户的权限，如果为空代表没登录
+ * current user access， if is '', user need login
+ * 如果是 pro 的预览，默认是有权限的
+ */
+let access =
+    ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'admin' : '';
+
+const getAccess = () => {
+    return access;
+};
+
 const createUserList = () => {
     return [
         {
-            userId: 1,
-            avatar: 'https://pic1.zhimg.com/80/v2-083faf550543c1e9f134b56b3322ee3c_720w.webp',
-            username: 'admin',
-            password: '123456789',
-            desc: '下船不谈船里事',
-            roles: ['平台管理员'],
-            buttons: ['cuser.detail'],
-            routes: ['home'],
-            token: 'Admin Token'
+            key: '1',
+            name: 'John Brown',
+            age: 32,
+            address: 'New York No. 1 Lake Park',
         },
         {
-            userId: 2,
-            avatar: 'https://pic1.zhimg.com/80/v2-e1427f6a21122ac163ff98d24f55d372_720w.webp',
-            username: 'system',
-            password: '123456789',
-            desc: '旧人不谈近况，新人不讲过往',
-            roles: ['系统管理员'],
-            buttons: ['cuser.detail', 'cuser.user'],
-            routes: ['home'],
-            token: 'Admin Token'
-        }
+            key: '2',
+            name: 'Jim Green',
+            age: 42,
+            address: 'London No. 1 Lake Park',
+        },
+        {
+            key: '3',
+            name: 'Joe Black',
+            age: 32,
+            address: 'Sidney No. 1 Lake Park',
+        },
     ]
 }
+
 export default [
-    // 用户登录接口
+    // 获取当前用户信息
     {
-        url: '/api/user/login',
-        method: 'post',
-        response: ({ body }: { body: { username: string, password: string } }) => {
-            // 获取请求体携带过来的用户名与密码
-            const { username, password } = body
-            // 调用获取用户信息函数，用于判断是否有此用户
-            const checkUser = createUserList().find(
-                (item) => item.username === username && item.password === password
-            )
-            // 没有用户则返回失败信息
-            if (!checkUser) {
+        url: '/api/currentUser',
+        method: 'get',
+        response: () => {
+            if (!getAccess()) {
                 return {
-                    code: 201,
                     data: {
-                        message: '账号或者密码不正确'
-                    }
-                }
+                        isLogin: false,
+                    },
+                    errorCode: '401',
+                    errorMessage: '请先登录！',
+                    success: true,
+                };
             }
-            // 如果有返回成功信息
-            const { token } = checkUser
             return {
-                code: 200,
+                success: true,
                 data: {
-                    token
-                }
-            }
+                    name: 'Serati Ma',
+                    avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+                    userid: '00000001',
+                    email: 'antdesign@alipay.com',
+                    signature: '海纳百川，有容乃大',
+                    title: '交互专家',
+                    group: '蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED',
+                    tags: [
+                        {
+                            key: '0',
+                            label: '很有想法的',
+                        },
+                        {
+                            key: '1',
+                            label: '专注设计',
+                        },
+                        {
+                            key: '2',
+                            label: '辣~',
+                        },
+                        {
+                            key: '3',
+                            label: '大长腿',
+                        },
+                        {
+                            key: '4',
+                            label: '川妹子',
+                        },
+                        {
+                            key: '5',
+                            label: '海纳百川',
+                        },
+                    ],
+                    notifyCount: 12,
+                    unreadCount: 11,
+                    country: 'China',
+                    access: getAccess(),
+                    geographic: {
+                        province: {
+                            label: '浙江省',
+                            key: '330000',
+                        },
+                        city: {
+                            label: '杭州市',
+                            key: '330100',
+                        },
+                    },
+                    address: '西湖区工专路 77 号',
+                    phone: '0752-268888888',
+                },
+            };
         }
     },
-    // 获取用户信息接口
+    // 获取用户列表
     {
-        url: '/api/user/info',
+        url: '/api/users',
         method: 'get',
-        response: (request: { headers: { token: string } }) => {
-            // 获取请求头携带的 token
-            const token = request.headers.token
-            // 查看用户信息数据中是否包含有此 token 的用户
-            const checkUser = createUserList().find((item) => item.token === token)
-            // 没有就返回失败信息
-            if (!checkUser) {
+        response: () => {
+            return createUserList();
+        }
+    },
+    // 用户登录
+    {
+        url: '/api/login/account',
+        method: 'post',
+        timeout: 1000,
+        response: ({ body }: { body: { password: string, username: string, type: string } }) => {
+            const { password, username, type } = body;
+            if (password === 'ant.design' && username === 'admin') {
+                access = 'admin';
+                console.log('admin');
                 return {
-                    code: 201,
-                    data: {
-                        message: '获取用户信息失败'
-                    }
-                }
+                    status: 'ok',
+                    type,
+                    currentAuthority: 'admin',
+                };
             }
-            // 有就返回成功信息
+            if (password === 'ant.design' && username === 'user') {
+                access = 'user';
+                return {
+                    status: 'ok',
+                    type,
+                    currentAuthority: 'user',
+                };
+            }
+            if (type === 'mobile') {
+                access = 'admin';
+                return {
+                    status: 'ok',
+                    type,
+                    currentAuthority: 'admin',
+                };
+            }
+
+            access = 'guest';
             return {
-                code: 200,
+                status: 'error',
+                type,
+                currentAuthority: 'guest',
+            };
+        }
+    },
+    // 用户登出
+    {
+        url: '/api/login/outLogin',
+        method: 'post',
+        response: () => {
+            access = '';
+            return { data: {}, success: true };
+        }
+    },
+    // 用户注册
+    {
+        url: '/api/register',
+        method: 'post',
+        timeout: 1000,
+        response: () => {
+            return { status: 'ok', currentAuthority: 'user', success: true };
+        }
+    },
+    // 获取验证码
+    {
+        url: '/api/login/captcha',
+        method: 'post',
+        timeout: 1000,
+        response: () => {
+            return {
+                success: true,
                 data: {
-                    checkUser
+                    captcha: 'captcha-xxx'
                 }
-            }
+            };
+        }
+    },
+    // 错误状态码接口
+    {
+        url: '/api/500',
+        method: 'get',
+        response: () => {
+            return {
+                timestamp: 1513932555104,
+                status: 500,
+                error: 'error',
+                message: 'error',
+                path: '/base/category/list',
+            };
+        }
+    },
+    {
+        url: '/api/404',
+        method: 'get',
+        response: () => {
+            return {
+                timestamp: 1513932643431,
+                status: 404,
+                error: 'Not Found',
+                message: 'No message available',
+                path: '/base/category/list/2121212',
+            };
+        }
+    },
+    {
+        url: '/api/403',
+        method: 'get',
+        response: () => {
+            return {
+                timestamp: 1513932555104,
+                status: 403,
+                error: 'Forbidden',
+                message: 'Forbidden',
+                path: '/base/category/list',
+            };
+        }
+    },
+    {
+        url: '/api/401',
+        method: 'get',
+        response: () => {
+            return {
+                timestamp: 1513932555104,
+                status: 401,
+                error: 'Unauthorized',
+                message: 'Unauthorized',
+                path: '/base/category/list',
+            };
         }
     }
 ]
