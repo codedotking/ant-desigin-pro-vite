@@ -2,6 +2,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { Layout } from '@/components/Layout'
 import Login from '@/pages/Login'
 import Home from '@/pages/Home'
+import NoFoundPage from '@/pages/404'
 
 export const router = createBrowserRouter([
   {
@@ -10,16 +11,20 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Navigate to="/home" replace />
+        element: <Navigate to="/welcome" replace />
       },
       {
-        path: 'home',
+        path: 'welcome',
         element: <Home />
+      },
+      {
+        path: '*',
+        element: <NoFoundPage />
       }
     ]
   },
   {
-    path: '/login',
+    path: '/user/login',
     element: <Login />
   }
 ])

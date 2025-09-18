@@ -1,4 +1,4 @@
-import { user } from '@/store';
+import { checkIsLoggedIn } from '@/stores';
 import { request } from '@/utils';
 
 const api = {
@@ -17,7 +17,7 @@ export const login = async (params: unknown) => {
 
 //获取用户信息
 export const getCurrentUser = () => {
-    if (!user) return Promise.reject(new Error('用户未登录'));
+    if (!checkIsLoggedIn()) return Promise.reject(new Error('用户未登录'));
     return request.get(api.currentUser);
 }
 

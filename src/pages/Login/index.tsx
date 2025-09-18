@@ -17,7 +17,8 @@ import { createStyles } from 'antd-style';
 import React, { useState } from 'react';
 import { getCaptcha, getCurrentUser, login } from '@/api/user';
 import type { LoginParams, LoginResult } from '@/types/api';
-import { setUser } from '@/store';
+import { useUserActions } from '@/stores';
+import { Footer } from '@/components';
 
 const useStyles = createStyles(({ token }) => {
     return {
@@ -93,12 +94,12 @@ const LoginMessage: React.FC<{
 const Login: React.FC = () => {
     const [userLoginState, setUserLoginState] = useState<LoginResult>({});
     const [type, setType] = useState<string>('account');
+    const actions = useUserActions();
     const { styles } = useStyles();
     const { message } = App.useApp();
-
     const fetchUserInfo = async () => {
         const { data } = await getCurrentUser();
-        setUser(data);
+        actions.setUser(data);
     }
 
     const handleSubmit = async (values: LoginParams) => {
@@ -282,6 +283,8 @@ const Login: React.FC = () => {
                     </div>
                 </LoginForm>
             </div>
+
+            <Footer />
         </div>
     );
 };

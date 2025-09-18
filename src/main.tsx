@@ -8,6 +8,7 @@ import '@ant-design/v5-patch-for-react-19';
 import { ProConfigProvider } from '@ant-design/pro-components'
 import { App, ConfigProvider } from 'antd'
 import { StyleProvider } from '@ant-design/cssinjs';
+import "./index.css"
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

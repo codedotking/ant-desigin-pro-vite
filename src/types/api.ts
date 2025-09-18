@@ -13,11 +13,31 @@ export interface LoginResult {
   currentAuthority?: string;
 }
 
-export interface UserInfo {
-  id: string;
-  username: string;
-  avatar?: string;
-  email?: string;
-  phone?: string;
-  roles?: string[];
-}
+export type UserInfo = Partial<{
+  name: string;
+  avatar: string;
+  userid: string;
+  email: string;
+  signature: string;
+  title: string;
+  group: string;
+  tags: {
+    key: string;
+    label: string;
+  }[];
+  notifyCount: number;
+  unreadCount: number;
+  country: string;
+  geographic: {
+    province: {
+      label: string;
+      key: string;
+    };
+    city: {
+      label: string;
+      key: string;
+    };
+  };
+  address: string;
+  phone: string;
+}>;
