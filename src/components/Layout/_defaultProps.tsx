@@ -16,6 +16,33 @@ export default {
                 component: './Welcome',
             },
             {
+                path: '/dashboard',
+                name: '仪表盘',
+                icon: <CrownFilled />,
+                access: 'canAdmin',
+                component: './Admin',
+                routes: [
+                    {
+                        path: '/dashboard/analysis',
+                        name: '分析页',
+                        icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
+                        component: './Welcome',
+                    },
+                    {
+                        path: '/dashboard/monitor',
+                        name: '监控页',
+                        icon: <CrownFilled />,
+                        component: './Welcome',
+                    },
+                    {
+                        path: '/dashboard/workplace',
+                        name: '工作台',
+                        icon: <CrownFilled />,
+                        component: './Welcome',
+                    },
+                ],
+            },
+            {
                 path: '/admin',
                 name: '管理页',
                 icon: <CrownFilled />,

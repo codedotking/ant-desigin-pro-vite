@@ -131,7 +131,7 @@ export function Layout() {
               colorBgMenuItemSelected: 'rgba(0,0,0,0.04)',
             },
           }}
-          siderMenuType="group"
+          // siderMenuType="group"
           menu={{
             collapsedShowGroupTitle: true,
           }}
@@ -148,6 +148,7 @@ export function Layout() {
           menuItemRender={(item, dom) => (
             <div
               onClick={() => {
+                navigate(item.path || '/welcome');
                 setPathname(item.path || '/welcome');
               }}
             >
