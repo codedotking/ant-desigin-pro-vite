@@ -94,27 +94,27 @@ const LoginMessage: React.FC<{
 const Login: React.FC = () => {
     const [userLoginState, setUserLoginState] = useState<LoginResult>({});
     const [type, setType] = useState<string>('account');
-    const actions = useUserActions();
+    const { setUser, setLoggedIn } = useUserActions();
     const { styles } = useStyles();
     const { message } = App.useApp();
+
     const fetchUserInfo = async () => {
         const { data } = await getCurrentUser();
-        actions.setUser(data);
+        setUser(data);
     }
 
     const handleSubmit = async (values: LoginParams) => {
         try {
             // 登录
             const response = await login({ ...values, type }) as unknown as { data: LoginResult, status: string };
-            console.log(response);
             if (response?.status === 'ok') {
                 message.success('登录成功！');
+                setLoggedIn()
                 await fetchUserInfo();
                 const urlParams = new URL(window.location.href).searchParams;
                 window.location.href = urlParams.get('redirect') || '/';
                 return;
             }
-            console.log('登录失败，响应数据:', response.data);
             // 如果失败去设置用户错误信息
             setUserLoginState({ status: 'error', type: 'account' });
         } catch (error) {

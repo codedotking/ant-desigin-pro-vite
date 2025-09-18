@@ -1,4 +1,4 @@
-import { useSetting } from '@/stores/global';
+import { useAppSetting } from '@/stores';
 import { PageContainer } from '@ant-design/pro-components';
 // import { useModel } from '@umijs/max';
 import { Card, theme } from 'antd';
@@ -86,7 +86,7 @@ const InfoCard: React.FC<{
 
 const Welcome: React.FC = () => {
   const { token } = theme.useToken();
-  const navTheme = useSetting('navTheme')
+  const navTheme = useAppSetting('navTheme')
   return (
     <PageContainer>
       <Card

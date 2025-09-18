@@ -42,6 +42,8 @@ interface UserActions {
     clearUser: () => void;
     /** 更新用户信息 */
     updateUser: (updates: Partial<UserInfo>) => void;
+    /** 更新登录状态 */
+    setLoggedIn: () => void
 }
 
 /**
@@ -124,14 +126,22 @@ const useUserStore = create<UserStore, [["zustand/persist", PersistedUserState],
                         console.error('Error updating user:', error);
                     }
                 },
+                /**
+                 * 设置登录状态
+                 */
+                setLoggedIn: () => {
+                    set(state => {
+                        state.isLoggedIn = true;
+                    })
+                }
             },
         })),
         {
             name: 'user',
             storage: createJSONStorage(() => localStorage),
-            partialize: (state) => ({ 
-                user: state.user, 
-                isLoggedIn: state.isLoggedIn 
+            partialize: (state) => ({
+                user: state.user,
+                isLoggedIn: state.isLoggedIn
             }),
         }
     )
@@ -166,6 +176,8 @@ export const useUser = () => useUserStore((state) => state.user);
  * ```
  */
 export const useIsLoggedIn = () => useUserStore((state) => state.isLoggedIn);
+
+
 
 /**
  * 获取用户操作方法

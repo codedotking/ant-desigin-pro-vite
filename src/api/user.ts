@@ -17,6 +17,7 @@ export const login = async (params: unknown) => {
 
 //获取用户信息
 export const getCurrentUser = () => {
+    console.log(checkIsLoggedIn());
     if (!checkIsLoggedIn()) return Promise.reject(new Error('用户未登录'));
     return request.get(api.currentUser);
 }
