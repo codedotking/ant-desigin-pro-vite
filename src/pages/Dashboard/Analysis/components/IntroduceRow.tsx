@@ -1,5 +1,5 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
-import { Tiny, } from '@ant-design/charts';
+import { Tiny } from '@ant-design/plots';
 import { Col, Row, Tooltip } from 'antd';
 import { format } from 'd3-format';
 import { ChartCard, Field } from './Charts';
@@ -24,7 +24,27 @@ const IntroduceRow = ({ loading, visitData = [] }: { loading: boolean; visitData
   useEffect(() => {
     console.log("visitData", visitData);
   }, [visitData]);
+  const progress = 0.7
 
+  const config = {
+    height: 10,
+    autoFit: true,
+    percent: progress,
+    // color: ["#f3cbb1", "#a0ff03"],
+    // annotations: [
+    //   {
+    //     type: "text",
+    //     style: {
+    //       text: `${progress * 100}%`,
+    //       x: "50%",
+    //       y: "50%",
+    //       textAlign: "center",
+    //       fontSize: 16,
+    //       fontStyle: "bold",
+    //     },
+    //   }
+    // ]
+  };
 
   return (
     <Row gutter={24}>
@@ -75,12 +95,12 @@ const IntroduceRow = ({ loading, visitData = [] }: { loading: boolean; visitData
             xField="index"
             yField="value"
             style={{
-              fill: 'linear-gradient(-90deg, white 0%, darkgreen 100%)',
-              fillOpacity: 0.6,
+              fill: 'l(270) 0:rgb(151 95 228 / 10%) 0.5:rgb(151 95 228 / 60%) 1:rgb(151 95 228)',
             }}
             line={{
               color: '#975FE4',
             }}
+            tooltip={true}
             data={visitData.map((item, index) => ({ value: item.y, index: index }))}
           />
         </ChartCard>
@@ -96,11 +116,17 @@ const IntroduceRow = ({ loading, visitData = [] }: { loading: boolean; visitData
               <InfoCircleOutlined />
             </Tooltip>
           }
+
           total={format(",")(6560)}
           footer={<Field label="转化率" value="60%" />}
           contentHeight={46}
         >
-          <Tiny.Column height={46} autoFit data={visitData.map((item) => item.y)} />
+          <Tiny.Column height={46}
+            autoFit
+            tooltip={true}
+            xField='index'
+            yField='value'
+            data={visitData.map((item) => ({ index: item.x, value: item.y }))} />
         </ChartCard>
       </Col>
       <Col {...topColResponsiveProps}>
@@ -128,20 +154,24 @@ const IntroduceRow = ({ loading, visitData = [] }: { loading: boolean; visitData
           contentHeight={46}
         >
           <Tiny.Progress
-            height={46}
-            padding={[15, 0]}
+            height={10}
+            autoFit={true}
             percent={0.78}
+            tooltip={true}
+            padding={[15, 100]}
             color="#13C2C2"
-            autoFit
             annotations={[
               {
-                type: 'line',
-                start: ['80%', '0%'],
-                end: ['80%', '100%'],
+                type: "text",
                 style: {
-                  stroke: '#13C2C2',
+                  text: `${progress * 100}%`,
+                  x: "100%",
+                  y: "50%",
+                  textAlign: "center",
+                  fontSize: 16,
+                  fontStyle: "bold",
                 },
-              },
+              }
             ]}
           />
         </ChartCard>
