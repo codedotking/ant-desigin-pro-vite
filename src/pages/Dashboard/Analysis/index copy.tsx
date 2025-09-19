@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { Col, Dropdown, Menu, Row } from 'antd';
 import { GridContent } from '@ant-design/pro-components';
@@ -32,17 +32,8 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
   const [rangePickerValue, setRangePickerValue] = useState<[Dayjs, Dayjs]>(
     getTimeDistance('year'),
   );
-  const [data, setData] = useState<AnalysisData | null>(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    fakeChartData().then((res) => {
-      setData(res);
-    }).finally(() => {
-      setLoading(false);
-    });
-  }, []);
 
+  const { loading, data } = useRequest<AnalysisData>(fakeChartData);
 
   const selectDate = (type: TimeType) => {
     setRangePickerValue(getTimeDistance(type));
@@ -111,10 +102,7 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
           <IntroduceRow loading={loading} visitData={data?.visitData || []} />
         </Suspense>
 
-
-
-
-        {/* <Suspense fallback={null}>
+        <Suspense fallback={null}>
           <SalesCard
             rangePickerValue={rangePickerValue}
             salesData={data?.salesData || []}
@@ -123,8 +111,8 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
             loading={loading}
             selectDate={selectDate}
           />
-        </Suspense> */}
-        {/* 
+        </Suspense>
+
         <Row
           gutter={24}
           style={{
@@ -162,7 +150,7 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
             offlineChartData={data?.offlineChartData || []}
             handleTabChange={handleTabChange}
           />
-        </Suspense> */}
+        </Suspense>
       </>
     </GridContent>
   );

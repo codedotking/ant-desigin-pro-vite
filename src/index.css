@@ -1,6 +1,3 @@
-/* 定义层级 */
 @layer theme, base, antd, components, utilities;
 
-
-/* 导入tailwindcss */
 @import 'tailwindcss';

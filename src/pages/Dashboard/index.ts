@@ -1,4 +1,4 @@
-import { Analysis } from './Analysis'
+import Analysis from './Analysis'
 import { Monitor } from './Monitor'
 import { Workplace } from './Workplace'
 
