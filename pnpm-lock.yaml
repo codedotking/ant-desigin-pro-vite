@@ -53,9 +53,6 @@ importers:
       immer:
         specifier: ^10.1.3
         version: 10.1.3
-      moment:
-        specifier: ^2.30.1
-        version: 2.30.1
       numeral:
         specifier: ^2.0.6
         version: 2.0.6
@@ -6847,7 +6844,8 @@ snapshots:
     dependencies:
       commander: 14.0.1
 
-  moment@2.30.1: {}
+  moment@2.30.1:
+    optional: true
 
   ms@2.0.0: {}
 

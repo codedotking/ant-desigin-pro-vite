@@ -1,14 +1,18 @@
-import { Card, Col, DatePicker, Row, Tabs } from 'antd';
+import { Card, Col, DatePicker, Row, Tabs, Segmented } from 'antd';
 import { Column } from '@ant-design/charts';
 import type { Dayjs } from 'dayjs';
 import type { PickerProps } from 'antd/es/date-picker/generatePicker';
 import { format } from 'd3-format';
 import type { DataItem } from '../data.d';
 import { useStyles } from '../style';
-type RangePickerValue = PickerProps<[Dayjs, Dayjs]>['value'];
+import { isTimeRangeInPreset } from '../utils/utils';
+
 export type TimeType = 'today' | 'week' | 'month' | 'year';
 
+
 const { RangePicker } = DatePicker;
+
+
 const { TabPane } = Tabs;
 
 const rankingListData: { title: string; total: number }[] = [];
@@ -21,45 +25,52 @@ for (let i = 0; i < 7; i += 1) {
   });
 }
 
-const SalesCard = ({
-  rangePickerValue,
-  salesData,
-  isActive,
-  // handleRangePickerChange,
-  loading,
-  selectDate,
-}: {
-  rangePickerValue: RangePickerValue;
-  isActive: (key: TimeType) => string;
+interface SalesCardProps {
+  rangePickerValue: [Dayjs, Dayjs];
   salesData: DataItem[];
   loading: boolean;
-  handleRangePickerChange: (dates: RangePickerValue, dateStrings: [string, string]) => void;
+  handleRangePickerChange: (dates: [Dayjs, Dayjs], dateStrings: [string, string]) => void;
   selectDate: (key: TimeType) => void;
+}
+
+const SalesCard: React.FC<SalesCardProps> = ({
+  rangePickerValue,
+  salesData,
+  handleRangePickerChange,
+  loading,
+  selectDate,
 }) => {
   const { styles } = useStyles();
+
+  const timeType = isTimeRangeInPreset(rangePickerValue);
+
+
   return (
-    <Card loading={loading} bordered={false} bodyStyle={{ padding: 0 }}>
+    <Card loading={loading} variant="borderless" styles={{ body: { padding: '20px 24px 8px 24px' } }}>
       <div className={styles.salesCard}>
         <Tabs
           tabBarExtraContent={
             <div className={styles.salesExtraWrap}>
-              <div className={styles.salesExtra}>
-                <a className={isActive('today')} onClick={() => selectDate('today')}>
-                  今日
-                </a>
-                <a className={isActive('week')} onClick={() => selectDate('week')}>
-                  本周
-                </a>
-                <a className={isActive('month')} onClick={() => selectDate('month')}>
-                  本月
-                </a>
-                <a className={isActive('year')} onClick={() => selectDate('year')}>
-                  本年
-                </a>
-              </div>
+              <Segmented<string>
+                options={[{
+                  label: '今日', value: 'today'
+                }, {
+                  label: '本周', value: 'week'
+                }, {
+                  label: '本月', value: 'month'
+                }, {
+                  label: '本年', value: 'year'
+                }]}
+                onChange={(value) => {
+                  selectDate(value as TimeType)
+                }}
+                value={timeType as string | undefined}
+              />
               <RangePicker
                 value={rangePickerValue as [Dayjs, Dayjs]}
-                // onChange={handleRangePickerChange as (dates: [Dayjs, Dayjs] | null, dateStrings: [string, string]) => void}
+                onChange={(dates, dateStrings) => {
+                  handleRangePickerChange(dates as [Dayjs, Dayjs], dateStrings as [string, string]);
+                }}
                 style={{ width: 256 }}
               />
             </div>
@@ -67,6 +78,8 @@ const SalesCard = ({
           size="large"
           tabBarStyle={{ marginBottom: 24 }}
         >
+
+
           <TabPane tab="销售额" key="sales">
             <Row>
               <Col xl={16} lg={12} md={12} sm={24} xs={24}>
@@ -113,6 +126,8 @@ const SalesCard = ({
               </Col>
             </Row>
           </TabPane>
+
+
           <TabPane tab="访问量" key="views">
             <Row>
               <Col xl={16} lg={12} md={12} sm={24} xs={24}>
@@ -157,6 +172,7 @@ const SalesCard = ({
               </Col>
             </Row>
           </TabPane>
+
         </Tabs>
       </div>
     </Card>

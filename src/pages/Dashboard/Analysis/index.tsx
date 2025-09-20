@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { Suspense, useEffect, useState } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { Col, Dropdown, Menu, Row } from 'antd';
+import { Col, Dropdown, Menu, Row, type MenuProps } from 'antd';
 import { GridContent } from '@ant-design/pro-components';
 import { useRequest } from '../../../hooks/useRequest';
 import type { RadioChangeEvent } from 'antd/es/radio';
@@ -52,43 +52,22 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
     setRangePickerValue(value);
   };
 
-  const isActive = (type: TimeType) => {
-    if (!rangePickerValue) {
-      return '';
-    }
-    const value = getTimeDistance(type);
-    if (!value) {
-      return '';
-    }
-    if (!rangePickerValue[0] || !rangePickerValue[1]) {
-      return '';
-    }
-    if (
-      rangePickerValue[0].isSame(value[0], 'day') &&
-      rangePickerValue[1].isSame(value[1], 'day')
-    ) {
-      return 'currentDate';
-    }
-    return '';
-  };
-
-  let salesPieData;
-  if (salesType === 'all') {
-    salesPieData = data?.salesTypeData || [];
-  } else {
-    salesPieData = salesType === 'online' ? (data?.salesTypeDataOnline || []) : (data?.salesTypeDataOffline || []);
-  }
-
-  const menu = (
-    <Menu>
-      <Menu.Item>操作一</Menu.Item>
-      <Menu.Item>操作二</Menu.Item>
-    </Menu>
-  );
+  const salesPieData = salesType === 'all' ? (data?.salesTypeData || []) : (salesType === 'online' ? (data?.salesTypeDataOnline || []) : (data?.salesTypeDataOffline || []));
 
   const dropdownGroup = (
     <span className={styles.iconGroup}>
-      <Dropdown overlay={menu} placement="bottomRight">
+      <Dropdown menu={{
+        items: [
+          {
+            key: '1',
+            label: '操作一',
+          },
+          {
+            key: '2',
+            label: '操作二',
+          },
+        ]
+      }} placement="bottomRight">
         <EllipsisOutlined />
       </Dropdown>
     </span>
@@ -111,20 +90,16 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
           <IntroduceRow loading={loading} visitData={data?.visitData || []} />
         </Suspense>
 
-
-
-
-        {/* <Suspense fallback={null}>
+        <Suspense fallback={null}>
           <SalesCard
             rangePickerValue={rangePickerValue}
             salesData={data?.salesData || []}
-            isActive={isActive}
             handleRangePickerChange={handleRangePickerChange}
             loading={loading}
             selectDate={selectDate}
           />
-        </Suspense> */}
-        {/* 
+        </Suspense>
+
         <Row
           gutter={24}
           style={{
@@ -162,7 +137,7 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
             offlineChartData={data?.offlineChartData || []}
             handleTabChange={handleTabChange}
           />
-        </Suspense> */}
+        </Suspense>
       </>
     </GridContent>
   );

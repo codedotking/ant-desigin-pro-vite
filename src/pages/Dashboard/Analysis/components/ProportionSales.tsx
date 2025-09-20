@@ -1,4 +1,4 @@
-import { Card, Radio, Typography } from 'antd';
+import { Card, Radio, Segmented, Typography } from 'antd';
 import type { RadioChangeEvent } from 'antd/es/radio';
 import type { PieConfig } from '@ant-design/charts';
 import { Pie } from '@ant-design/charts';
@@ -22,8 +22,15 @@ const ProportionSales = ({
   salesPieData: DataItem[];
   handleChangeSalesType?: (e: RadioChangeEvent) => void;
 }) => {
-
   const { styles } = useStyles();
+
+
+
+
+
+  console.log("salesPieData",salesPieData);
+  
+
   const pieConfig: PieConfig = {
     autoFit: true,
     height: 300,
@@ -35,8 +42,8 @@ const ProportionSales = ({
     legend: false,
     label: {
       type: 'spider',
-      formatter: (_: string, item: { _origin: { x: string; y: number } }) => {
-        return `${item._origin.x}: ${format(",")(item._origin.y)}`;
+      formatter: (_: string, item:{x:string,y:number}) => {
+        return `${item.x}: ${format(",")(item.y)}`;
       },
     },
     statistic: {
@@ -50,21 +57,36 @@ const ProportionSales = ({
     <Card
       loading={loading}
       className={styles.salesCard}
-      bordered={false}
+      variant='borderless'
       title="销售额类别占比"
       style={{
         height: '100%',
       }}
       extra={
         <div className={styles.salesCardExtra}>
+          <Segmented<string>
+            value={salesType}
+            options={[
+              {
+                label: '全部渠道',
+                value: 'all',
+              },
+              {
+                label: '线上',
+                value: 'online',
+              },
+              {
+                label: '门店',
+                value: 'stores',
+              },
+            ]}
+            onChange={(value) => {
+              handleChangeSalesType?.({ target: { value } } as RadioChangeEvent);
+            }}
+          >
+          </Segmented>
+
           {dropdownGroup}
-          <div className={styles.salesTypeRadio}>
-            <Radio.Group value={salesType} onChange={handleChangeSalesType}>
-              <Radio.Button value="all">全部渠道</Radio.Button>
-              <Radio.Button value="online">线上</Radio.Button>
-              <Radio.Button value="stores">门店</Radio.Button>
-            </Radio.Group>
-          </div>
         </div>
       }
     >

@@ -3,11 +3,10 @@ import { Card, Col, Row, Table, Tooltip } from 'antd';
 import React from 'react';
 import NumberInfo from './NumberInfo';
 import Trend from './Trend';
-import styles from '../style.module.less';
 import { Tiny } from '@ant-design/charts';
 import type { ColumnsType } from 'antd/es/table';
-import type { DataItem } from '../data';
 import { format } from "d3-format";
+import type { DataItem } from '../data.d';
 
 const columns: ColumnsType<{
   index: number;
@@ -32,7 +31,7 @@ const columns: ColumnsType<{
       dataIndex: 'count',
       key: 'count',
       sorter: (a: { count: number }, b: { count: number }) => a.count - b.count,
-      className: styles.alignRight,
+      // className: styles.alignRight,
     },
     {
       title: '周涨幅',
@@ -47,6 +46,7 @@ const columns: ColumnsType<{
     },
   ];
 
+
 const TopSearch = ({
   loading,
   visitData2 = [],
@@ -57,62 +57,91 @@ const TopSearch = ({
   visitData2?: DataItem[];
   searchData?: DataItem[];
   dropdownGroup: React.ReactNode;
-}) => (
-  <Card
-    loading={loading}
-    title="线上热门搜索"
-    extra={dropdownGroup}
-    style={{
-      height: '100%',
-    }}
-  >
-    <Row gutter={68}>
-      <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
-        <NumberInfo
-          subTitle={
-            <span>
-              搜索用户数
-              <Tooltip title="指标说明">
-                <InfoCircleOutlined style={{ marginLeft: 8 }} />
-              </Tooltip>
-            </span>
-          }
-          gap={8}
-          total={format(",")(12321)}
-          status="up"
-          subTotal={17.1}
-        />
-        <Tiny.Area height={45} autoFit smooth data={visitData2.map((item) => item.y)} />
-      </Col>
-      <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
-        <NumberInfo
-          subTitle={
-            <span>
-              人均搜索次数
-              <Tooltip title="指标说明">
-                <InfoCircleOutlined style={{ marginLeft: 8 }} />
-              </Tooltip>
-            </span>
-          }
-          total={2.7}
-          status="down"
-          subTotal={26.2}
-          gap={8}
-        />
-        <Tiny.Area height={45} autoFit smooth data={visitData2.map((item) => item.y)} />
-      </Col>
-    </Row>
-    <Table
-      rowKey={(record) => record.index}
-      size="small"
-      columns={columns}
-      dataSource={searchData}
-      pagination={{
-        style: { marginBottom: 0 },
-        pageSize: 5,
+}) => {
+
+
+  return (
+    <Card
+      loading={loading}
+      title="线上热门搜索"
+      extra={dropdownGroup}
+      style={{
+        height: '100%',
       }}
-    />
-  </Card>
-);
+    >
+      <Row gutter={68}>
+        <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
+          <NumberInfo
+            subTitle={
+              <span>
+                搜索用户数
+                <Tooltip title="指标说明">
+                  <InfoCircleOutlined style={{ marginLeft: 8 }} />
+                </Tooltip>
+              </span>
+            }
+            gap={8}
+            total={format(",")(12321)}
+            status="up"
+            subTotal={17.1}
+          />
+          <Tiny.Area
+            height={45}
+            autoFit
+            smooth
+            yField="y"
+            xField="x"
+            style={{
+              fill: 'l(270) 0:rgb(151 95 228 / 10%) 0.5:rgb(151 95 228 / 60%) 1:rgb(151 95 228)',
+            }}
+            line={{
+              color: '#975FE4',
+            }}
+            data={visitData2.map((item, index) => ({ y: item.y, x: index }))} />
+        </Col>
+        <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
+          <NumberInfo
+            subTitle={
+              <span>
+                人均搜索次数
+                <Tooltip title="指标说明">
+                  <InfoCircleOutlined style={{ marginLeft: 8 }} />
+                </Tooltip>
+              </span>
+            }
+            total={2.7}
+            status="down"
+            subTotal={26.2}
+            gap={8}
+          />
+          <Tiny.Area
+            height={45}
+            autoFit
+            smooth
+            yField="y"
+            xField="x"
+            style={{
+              fill: 'l(270) 0:rgb(151 95 228 / 10%) 0.5:rgb(151 95 228 / 60%) 1:rgb(151 95 228)',
+            }}
+            line={{
+              color: '#975FE4',
+            }}
+            data={visitData2.map((item, index) => ({ y: item.y, x: index }))} />
+        </Col>
+      </Row>
+
+      <Table
+        rowKey={(record) => record.index}
+        size="small"
+        columns={columns}
+        dataSource={searchData}
+        pagination={{
+          style: { marginBottom: 0 },
+          pageSize: 5,
+        }}
+      />
+    </Card>
+  )
+};
 
 export default TopSearch;

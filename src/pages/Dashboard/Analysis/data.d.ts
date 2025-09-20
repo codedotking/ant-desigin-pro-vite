@@ -1,4 +1,4 @@
-import { DataItem } from '@antv/g2plot/esm/interface/config';
+import { DataItem } from "@ant-design/charts";
 
 export { DataItem };
 

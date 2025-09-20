@@ -1,7 +1,7 @@
 import { createStyles, cx } from "antd-style";
 
 export const useStyles = createStyles(({ token, css }) => {
-    const iconGroup = cx(css`
+  const iconGroup = cx(css`
     span.anticon {
       margin-left: 16px;
       color: ${token.colorTextSecondary};
@@ -13,7 +13,7 @@ export const useStyles = createStyles(({ token, css }) => {
     }
   `);
 
-    const rankingItemNumber = cx(css`
+  const rankingItemNumber = cx(css`
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -25,14 +25,14 @@ export const useStyles = createStyles(({ token, css }) => {
     text-align: center;
     background-color: ${token.colorFillSecondary};
     border-radius: 20px;
-    
+
     &.active {
       color: #fff;
       background-color: #314659;
     }
   `);
 
-    const rankingItemTitle = cx(css`
+  const rankingItemTitle = cx(css`
     flex: 1;
     margin-right: 8px;
     overflow: hidden;
@@ -40,21 +40,21 @@ export const useStyles = createStyles(({ token, css }) => {
     text-overflow: ellipsis;
   `);
 
-    const rankingList = cx(css`
+  const rankingList = cx(css`
     margin: 25px 0 0;
     padding: 0;
     list-style: none;
-    
+
     li {
       display: flex;
       align-items: center;
       margin-top: 16px;
       zoom: 1;
-      
+
       &::before,
       &::after {
         display: table;
-        content: ' ';
+        content: " ";
       }
       &::after {
         clear: both;
@@ -62,27 +62,27 @@ export const useStyles = createStyles(({ token, css }) => {
         font-size: 0;
         visibility: hidden;
       }
-      
+
       span {
         color: ${token.colorText};
         font-size: 14px;
         line-height: 22px;
       }
-      
+
       .rankingItemNumber {
         ${rankingItemNumber}
       }
-      
+
       .rankingItemTitle {
         ${rankingItemTitle}
       }
     }
   `);
 
-    const salesExtra = cx(css`
+  const salesExtra = cx(css`
     display: inline-block;
     margin-right: 24px;
-    
+
     a {
       margin-left: 24px;
       color: ${token.colorText};
@@ -95,22 +95,22 @@ export const useStyles = createStyles(({ token, css }) => {
     }
   `);
 
-    const salesBar = cx(css`
+  const salesBar = cx(css`
     padding: 0 0 32px 32px;
   `);
 
-    const salesRank = cx(css`
+  const salesRank = cx(css`
     padding: 0 32px 32px 72px;
   `);
 
-    const salesCard = cx(css`
+  const salesCard = cx(css`
     .salesBar {
       ${salesBar}
     }
     .salesRank {
       ${salesRank}
     }
-    
+
     :global {
       .ant-tabs-bar,
       .ant-tabs-nav-wrap {
@@ -134,17 +134,17 @@ export const useStyles = createStyles(({ token, css }) => {
     }
   `);
 
-    const salesCardExtra = cx(css`
+  const salesCardExtra = cx(css`
     height: inherit;
   `);
 
-    const salesTypeRadio = cx(css`
-    position: absolute;
-    right: 54px;
-    bottom: 12px;
+  const salesTypeRadio = cx(css`
+    // position: absolute;
+    // right: 54px;
+    // bottom: 12px;
   `);
 
-    const offlineCard = cx(css`
+  const offlineCard = cx(css`
     :global {
       .ant-tabs-ink-bar {
         bottom: auto;
@@ -170,39 +170,42 @@ export const useStyles = createStyles(({ token, css }) => {
     }
   `);
 
-    const trendText = cx(css`
+  const trendText = cx(css`
     margin-left: 8px;
     color: ${token.colorTextHeading};
   `);
 
-    const rankingTitle = cx(css`
+  const rankingTitle = cx(css`
     @media screen and (max-width: ${token.screenMD}px) {
       margin-top: 16px;
     }
   `);
 
-    const salesExtraWrap = cx(css`
+  const salesExtraWrap = cx(css`
+    display: flex;
+    gap: 8px;
+
     @media screen and (max-width: ${token.screenSM}px) {
       display: none;
     }
   `);
 
-    return {
-        iconGroup,
-        rankingList,
-        rankingItemNumber,
-        rankingItemTitle,
-        salesExtra,
-        salesBar,
-        salesRank,
-        salesCard,
-        salesCardExtra,
-        salesTypeRadio,
-        offlineCard,
-        trendText,
-        rankingTitle,
-        salesExtraWrap,
-    };
+  return {
+    iconGroup,
+    rankingList,
+    rankingItemNumber,
+    rankingItemTitle,
+    salesExtra,
+    salesBar,
+    salesRank,
+    salesCard,
+    salesCardExtra,
+    salesTypeRadio,
+    offlineCard,
+    trendText,
+    rankingTitle,
+    salesExtraWrap,
+  };
 });
 
 export default useStyles;
