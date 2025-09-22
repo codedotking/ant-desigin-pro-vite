@@ -32,9 +32,6 @@ import type {
 import type {
     ComposeOption,
 } from 'echarts/core';
-import type { EChartsReactProps } from 'echarts-for-react';
-import ReactEChartsCore from 'echarts-for-react/lib/core';
-import type EChartsReact from 'echarts-for-react';
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
 export type ECOption = ComposeOption<
     | BarSeriesOption
