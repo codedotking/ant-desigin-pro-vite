@@ -2,7 +2,8 @@ import * as echarts from 'echarts/core';
 import {
     BarChart,
     LineChart,
-    GraphChart
+    GraphChart,
+    CustomChart
 } from 'echarts/charts';
 import {
     TitleComponent,
@@ -13,7 +14,7 @@ import {
     // 内置数据转换器组件 (filter, sort)
     TransformComponent,
     // geo 组件
-    GeoComponent
+    GeoComponent,
 } from 'echarts/components';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -51,6 +52,7 @@ echarts.use([
     TransformComponent,
     BarChart,
     LineChart,
+    CustomChart,
     LabelLayout,
     UniversalTransition,
     CanvasRenderer,
