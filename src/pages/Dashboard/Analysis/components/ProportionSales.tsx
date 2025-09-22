@@ -1,6 +1,5 @@
-import { Card, Radio, Segmented, Typography } from 'antd';
+import { Card, Segmented, Typography } from 'antd';
 import type { RadioChangeEvent } from 'antd/es/radio';
-import type { PieConfig } from '@ant-design/charts';
 import { Pie } from '@ant-design/charts';
 import React from 'react';
 import type { DataItem } from '../data.d';
@@ -24,34 +23,27 @@ const ProportionSales = ({
 }) => {
   const { styles } = useStyles();
 
-
-
-
-
-  console.log("salesPieData",salesPieData);
-  
-
-  const pieConfig: PieConfig = {
-    autoFit: true,
-    height: 300,
-    data: salesPieData,
-    radius: 1,
-    innerRadius: 0.64,
-    angleField: 'y',
-    colorField: 'x',
-    legend: false,
-    label: {
-      type: 'spider',
-      formatter: (_: string, item:{x:string,y:number}) => {
-        return `${item.x}: ${format(",")(item.y)}`;
-      },
-    },
-    statistic: {
-      title: {
-        content: '销售额',
-      },
-    },
-  };
+  // const pieConfig: PieConfig = {
+  //   autoFit: true,
+  //   height: 300,
+  //   data: salesPieData,
+  //   radius: 1,
+  //   innerRadius: 0.64,
+  //   angleField: 'y',
+  //   colorField: 'x',
+  //   legend: false,
+  //   label: {
+  //     type: 'spider',
+  //     formatter: (_: string, item: { x: string, y: number }) => {
+  //       return `${item.x}: ${format(",")(item.y)}`;
+  //     },
+  //   },
+  //   statistic: {
+  //     title: {
+  //       content: '销售额',
+  //     },
+  //   },
+  // };
 
   return (
     <Card
@@ -92,7 +84,29 @@ const ProportionSales = ({
     >
       <div>
         <Text>销售额</Text>
-        <Pie {...pieConfig} />
+        <Pie {...{
+          height: 300,
+          data: salesPieData,
+          angleField: 'y',
+          colorField: 'x',
+          innerRadius: 0.6,
+          label: {
+            text: 'value',
+            style: {
+              fontWeight: 'bold',
+            },
+            formatter: (_: string, item: { x: string, y: number }) => {
+              return `${item.x}: ${format(",")(item.y)}`;
+            },
+          },
+          legend: {
+            color: {
+              title: false,
+              position: 'right',
+              rowPadding: 5,
+            },
+          },
+        }} />
       </div>
     </Card>
   );

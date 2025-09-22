@@ -26,25 +26,25 @@ const IntroduceRow = ({ loading, visitData = [] }: { loading: boolean; visitData
   }, [visitData]);
   const progress = 0.7
 
-  const config = {
-    height: 10,
-    autoFit: true,
-    percent: progress,
-    // color: ["#f3cbb1", "#a0ff03"],
-    // annotations: [
-    //   {
-    //     type: "text",
-    //     style: {
-    //       text: `${progress * 100}%`,
-    //       x: "50%",
-    //       y: "50%",
-    //       textAlign: "center",
-    //       fontSize: 16,
-    //       fontStyle: "bold",
-    //     },
-    //   }
-    // ]
-  };
+  // const config = {
+  //   height: 10,
+  //   autoFit: true,
+  //   percent: progress,
+  //   // color: ["#f3cbb1", "#a0ff03"],
+  //   // annotations: [
+  //   //   {
+  //   //     type: "text",
+  //   //     style: {
+  //   //       text: `${progress * 100}%`,
+  //   //       x: "50%",
+  //   //       y: "50%",
+  //   //       textAlign: "center",
+  //   //       fontSize: 16,
+  //   //       fontStyle: "bold",
+  //   //     },
+  //   //   }
+  //   // ]
+  // };
 
   return (
     <Row gutter={24}>

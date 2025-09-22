@@ -1,8 +1,9 @@
+import type { AxisProps } from 'bizcharts';
 import { Axis, Chart, Geom, Tooltip } from 'bizcharts';
 
 import React from 'react';
 import autoHeight from '../autoHeight';
-import useStyles from '../index.module.style';
+import styles from '../index.less';
 
 export type MiniAreaProps = {
   color?: string;
@@ -29,7 +30,6 @@ export type MiniAreaProps = {
 };
 
 const MiniArea: React.FC<MiniAreaProps> = (props) => {
-  const { styles } = useStyles();
   const {
     height = 1,
     data = [],
@@ -89,7 +89,6 @@ const MiniArea: React.FC<MiniAreaProps> = (props) => {
               grid={null}
               {...xAxis}
             />
-
             <Axis
               key="axis-y"
               name="y"
@@ -99,7 +98,6 @@ const MiniArea: React.FC<MiniAreaProps> = (props) => {
               grid={null}
               {...yAxis}
             />
-
             <Tooltip showTitle={false} crosshairs={false} />
             <Geom
               type="area"
@@ -111,7 +109,6 @@ const MiniArea: React.FC<MiniAreaProps> = (props) => {
                 fillOpacity: 1,
               }}
             />
-
             {line ? (
               <Geom
                 type="line"

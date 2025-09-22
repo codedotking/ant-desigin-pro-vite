@@ -11,9 +11,6 @@ const CustomTab = ({
   data: OfflineDataType;
   currentTabKey: string;
 }) => {
-  console.log(data);
-
-
   return (
     <Row gutter={8} style={{ width: 138, margin: '8px 0' }}>
       <Col span={12}>
@@ -49,8 +46,6 @@ const CustomTab = ({
   );
 }
 
-const { TabPane } = Tabs;
-
 const OfflineData = ({
   activeKey,
   loading,
@@ -66,37 +61,34 @@ const OfflineData = ({
 }) => {
   const { styles } = useStyles();
   return (
-    <Card loading={loading} className={styles.offlineCard} bordered={false} style={{ marginTop: 32 }}>
-      <Tabs activeKey={activeKey} onChange={handleTabChange}>
-        {offlineData.map((shop) => (
-          <TabPane tab={<CustomTab data={shop} currentTabKey={activeKey} />} key={shop.name}>
-            <div style={{ padding: '0 24px' }}>
-              <Line
+    <Card loading={loading} className={styles.offlineCard} variant='borderless' style={{ marginTop: 32 }}>
+      <Tabs activeKey={activeKey} onChange={handleTabChange}
+      
+        items={offlineData.map((shop) => ({
+          key: shop.name,
+          label: <CustomTab data={shop} currentTabKey={activeKey} />,
+          children: <div style={{ padding: '0 24px' }}>
+            <Line
+              data={offlineChartData}
+              xField="date"
+              yField="value"
+              seriesField="type"
+              colorField="type"
+              height={400}
+              interactions={[
                 {
-                ...{
-                  data: offlineChartData,
-                  xField: 'x',
-                  yField: 'y',
-                  shapeField: 'smooth',
-                  scale: {
-                    y: {
-                      domainMin: 0,
-                    },
-                  },
-                  interaction: {
-                    tooltip: {
-                      marker: false,
-                    },
-                  },
-                  style: {
-                    lineWidth: 2,
-                  },
-                }
-                }
-              />
-            </div>
-          </TabPane>
-        ))}
+                  type: 'slider',
+                  cfg: {},
+                },
+              ]}
+              legend={{
+                position: 'top',
+              }}
+            />
+          </div>,
+        }))}
+        
+      >
       </Tabs>
     </Card>
   )

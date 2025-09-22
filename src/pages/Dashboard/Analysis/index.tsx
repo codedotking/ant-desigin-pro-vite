@@ -1,9 +1,8 @@
 import type { FC } from 'react';
 import { Suspense, useEffect, useState } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { Col, Dropdown, Menu, Row, type MenuProps } from 'antd';
+import { Col, Dropdown, Row } from 'antd';
 import { GridContent } from '@ant-design/pro-components';
-import { useRequest } from '../../../hooks/useRequest';
 import type { RadioChangeEvent } from 'antd/es/radio';
 import IntroduceRow from './components/IntroduceRow';
 import SalesCard from './components/SalesCard';
@@ -37,17 +36,16 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
   useEffect(() => {
     setLoading(true);
     fakeChartData().then((res) => {
+      console.log(res);
+      
       setData(res);
     }).finally(() => {
       setLoading(false);
     });
   }, []);
-
-
   const selectDate = (type: TimeType) => {
     setRangePickerValue(getTimeDistance(type));
   };
-
   const handleRangePickerChange = (value: [Dayjs, Dayjs]) => {
     setRangePickerValue(value);
   };
