@@ -1,10 +1,11 @@
 import { Card, Segmented, Typography } from 'antd';
 import type { RadioChangeEvent } from 'antd/es/radio';
-import { Pie } from '@ant-design/charts';
 import React from 'react';
 import type { DataItem } from '../data.d';
 import { useStyles } from '../style';
 import { format } from 'd3-format';
+import { Echarts } from '@/components';
+import type { CallbackDataParams } from 'echarts/types/dist/shared';
 
 const { Text } = Typography;
 
@@ -22,28 +23,6 @@ const ProportionSales = ({
   handleChangeSalesType?: (e: RadioChangeEvent) => void;
 }) => {
   const { styles } = useStyles();
-
-  // const pieConfig: PieConfig = {
-  //   autoFit: true,
-  //   height: 300,
-  //   data: salesPieData,
-  //   radius: 1,
-  //   innerRadius: 0.64,
-  //   angleField: 'y',
-  //   colorField: 'x',
-  //   legend: false,
-  //   label: {
-  //     type: 'spider',
-  //     formatter: (_: string, item: { x: string, y: number }) => {
-  //       return `${item.x}: ${format(",")(item.y)}`;
-  //     },
-  //   },
-  //   statistic: {
-  //     title: {
-  //       content: '销售额',
-  //     },
-  //   },
-  // };
 
   return (
     <Card
@@ -84,29 +63,26 @@ const ProportionSales = ({
     >
       <div>
         <Text>销售额</Text>
-        <Pie {...{
-          height: 300,
-          data: salesPieData,
-          angleField: 'y',
-          colorField: 'x',
-          innerRadius: 0.6,
-          label: {
-            text: 'value',
-            style: {
-              fontWeight: 'bold',
+        <Echarts
+          option={{
+            tooltip: {
+              trigger: 'item',
             },
-            formatter: (_: string, item: { x: string, y: number }) => {
-              return `${item.x}: ${format(",")(item.y)}`;
-            },
-          },
-          legend: {
-            color: {
-              title: false,
-              position: 'right',
-              rowPadding: 5,
-            },
-          },
-        }} />
+            series: [
+              {
+                type: 'pie',
+                radius: ['60%', '90%'],
+                label: {
+                  show: true,
+                  formatter: (params: CallbackDataParams) => {
+                    return `${params.name}: ${format(",")(params.value as number)}`;
+                  },
+                },
+                data: salesPieData.map((item) => ({ value: item.y, name: item.x })),
+              }
+            ]
+          }}
+        />
       </div>
     </Card>
   );

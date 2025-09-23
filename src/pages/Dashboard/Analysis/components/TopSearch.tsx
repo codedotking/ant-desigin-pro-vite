@@ -3,10 +3,10 @@ import { Card, Col, Row, Table, Tooltip } from 'antd';
 import React from 'react';
 import NumberInfo from './NumberInfo';
 import Trend from './Trend';
-import { Tiny } from '@ant-design/charts';
 import type { ColumnsType } from 'antd/es/table';
 import { format } from "d3-format";
 import type { DataItem } from '../data.d';
+import { Tiny } from '@/components';
 
 const columns: ColumnsType<{
   index: number;
@@ -87,17 +87,17 @@ const TopSearch = ({
           />
           <Tiny.Area
             height={45}
-            autoFit
-            smooth
-            yField="y"
-            xField="x"
-            style={{
-              fill: 'l(270) 0:rgb(151 95 228 / 10%) 0.5:rgb(151 95 228 / 60%) 1:rgb(151 95 228)',
-            }}
+            // autoFit
+            // smooth
+            // yField="y"
+            // xField="x"
+            // style={{
+            //   fill: 'l(270) 0:rgb(151 95 228 / 10%) 0.5:rgb(151 95 228 / 60%) 1:rgb(151 95 228)',
+            // }}
             line={{
               color: '#975FE4',
             }}
-            data={visitData2.map((item, index) => ({ y: item.y, x: index }))} />
+            data={visitData2.map((item, index) => ({ value: item.y, name: `${index}` }))} />
         </Col>
         <Col sm={12} xs={24} style={{ marginBottom: 24 }}>
           <NumberInfo
@@ -116,17 +116,17 @@ const TopSearch = ({
           />
           <Tiny.Area
             height={45}
-            autoFit
-            smooth
-            yField="y"
-            xField="x"
-            style={{
-              fill: 'l(270) 0:rgb(151 95 228 / 10%) 0.5:rgb(151 95 228 / 60%) 1:rgb(151 95 228)',
-            }}
+            // autoFit
+            // smooth
+            // yField="y"
+            // xField="x"
+            // style={{
+            //   fill: 'l(270) 0:rgb(151 95 228 / 10%) 0.5:rgb(151 95 228 / 60%) 1:rgb(151 95 228)',
+            // }}
             line={{
               color: '#975FE4',
             }}
-            data={visitData2.map((item, index) => ({ y: item.y, x: index }))} />
+            data={visitData2.map((item, index) => ({ value: item.y, name: `${index}` }))} />
         </Col>
       </Row>
 

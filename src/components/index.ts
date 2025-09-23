@@ -9,16 +9,14 @@ import Footer from './Footer';
 import { Question, SelectLang } from './RightContent';
 import { AvatarDropdown, AvatarName } from './RightContent/AvatarDropdown';
 import RingProgress from './RingProgress';
-import { Echarts } from './ECharts';
-import Tiny, { type TinyAreaItem } from './Tiny';
 
-export type { TinyAreaItem };
+export * from './ECharts';
+
 export {
     AvatarDropdown,
     AvatarName,
     Footer,
     Question,
     SelectLang,
-    RingProgress, Echarts,
-    Tiny,
+    RingProgress
 };

@@ -59,7 +59,6 @@ const ActiveChart = () => {
         <Tiny.Area height={84} data={activeData} />
       </div>
 
-
       {activeData && (
         <div>
           <div className={styles.activeChartGrid}>

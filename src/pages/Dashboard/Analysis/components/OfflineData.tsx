@@ -1,8 +1,8 @@
 import { Card, Col, Row, Tabs } from 'antd';
-import { Pie, Line } from '@ant-design/charts';
 import type { OfflineDataType, DataItem } from '../data.d';
 import NumberInfo from './NumberInfo';
 import useStyles from '../style';
+import { Echarts } from '@/components';
 
 const CustomTab = ({
   data,
@@ -22,25 +22,25 @@ const CustomTab = ({
           theme={currentKey !== data.name ? 'light' : undefined}
         />
       </Col>
-      <Col span={12} style={{ paddingTop: 36 }}>
-        <Pie
-          autoFit
-          height={100}
-          innerRadius={0.8}
-          width={100}
-          angleField="value"
-          colorField="type"
-          label={false}
-          legend={false}
-          data={[
-            { type: data.name, value: data.cvr },
-            { type: '', value: 1 - data.cvr },
-          ]}
-          statistic={{
-            title: false,
-            content: false,
-          }}
-        />
+      <Col span={12} style={{}}>
+        <Echarts
+          style={{ height: '100px' }}
+          option={{
+            series: [
+              {
+                type: 'pie',
+                radius: ['70%', '90%'],
+                avoidLabelOverlap: false,
+                labelLine: {
+                  show: false,
+                },
+                data: [
+                  { name: data.name, value: data.cvr },
+                  { name: '', value: 1 - data.cvr },
+                ]
+              }
+            ]
+          }} />
       </Col>
     </Row>
   );
@@ -60,34 +60,55 @@ const OfflineData = ({
   handleTabChange: (activeKey: string) => void;
 }) => {
   const { styles } = useStyles();
+
+
+  // 去重
+  const dateList: string[] = []
+  const dateSet = new Set<string>(offlineChartData.map(item => item.date))
+  dateSet.forEach(item => {
+    dateList.push(item)
+  })
+
+
   return (
     <Card loading={loading} className={styles.offlineCard} variant='borderless' style={{ marginTop: 32 }}>
       <Tabs activeKey={activeKey} onChange={handleTabChange}
-      
+
         items={offlineData.map((shop) => ({
           key: shop.name,
           label: <CustomTab data={shop} currentTabKey={activeKey} />,
           children: <div style={{ padding: '0 24px' }}>
-            <Line
-              data={offlineChartData}
-              xField="date"
-              yField="value"
-              seriesField="type"
-              colorField="type"
-              height={400}
-              interactions={[
-                {
-                  type: 'slider',
-                  cfg: {},
-                },
-              ]}
-              legend={{
-                position: 'top',
-              }}
-            />
+            <Echarts option={{
+              grid: {
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+              },
+              xAxis: {
+                type: "category",
+                data: dateList
+              },
+              yAxis: {
+                type: "value"
+              },
+              series: offlineChartData.map(item => {
+                const data = offlineChartData.filter(item_ => item.type == item_.type)
+                  .map(item => ({ name: item.date, value: item.value }))
+                console.log(data);
+                return {
+                  type: "line",
+                  data: data,
+                  symbol: "none",
+                  smooth: false,
+                  name: item.type
+                }
+              })
+            }}>
+            </Echarts>
           </div>,
         }))}
-        
+
       >
       </Tabs>
     </Card>

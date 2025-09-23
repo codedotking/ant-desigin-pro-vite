@@ -1,10 +1,11 @@
 import { Card, Col, DatePicker, Row, Tabs, Segmented } from 'antd';
-import { Column } from '@ant-design/charts';
 import type { Dayjs } from 'dayjs';
 import { format } from 'd3-format';
 import type { DataItem } from '../data.d';
 import { useStyles } from '../style';
 import { isTimeRangeInPreset } from '../utils/utils';
+import { Echarts } from '@/components';
+import type { ECOption } from '@/plugins';
 
 export type TimeType = 'today' | 'week' | 'month' | 'year';
 
@@ -70,7 +71,7 @@ const SalesCard: React.FC<SalesCardProps> = ({
             </div>
           }
           size="large"
-          
+
           tabBarStyle={{ marginBottom: 24 }}
 
           items={[
@@ -80,24 +81,31 @@ const SalesCard: React.FC<SalesCardProps> = ({
               children: <Row>
                 <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                   <div className={styles.salesBar}>
-                    <Column
-                      height={300}
-                      autoFit
-                      data={salesData}
-                      xField="x"
-                      yField="y"
-                      xAxis={{
-                        title: null,
-                      }}
-                      yAxis={{
-                        title: null,
-                      }}
-                      meta={{
-                        y: {
-                          alias: '销售量',
-                        },
-                      }}
-                    />
+                    <Echarts option={{
+                      grid: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                      },
+                      xAxis: {
+                        type: 'category',
+                        data: salesData.map(item => item.x),
+                      },
+                      yAxis: {
+                        type: 'value'
+                      },
+                      series: [
+                        {
+                          data: salesData.map(item => item.y),
+                          type: 'bar',
+                          itemStyle: {
+                            color: '#1890FF'
+                          }
+                        }
+                      ]
+                    } as ECOption}>
+                    </Echarts>
                   </div>
                 </Col>
                 <Col xl={8} lg={12} md={12} sm={24} xs={24}>
@@ -128,24 +136,31 @@ const SalesCard: React.FC<SalesCardProps> = ({
               children: <Row>
                 <Col xl={16} lg={12} md={12} sm={24} xs={24}>
                   <div className={styles.salesBar}>
-                    <Column
-                      height={300}
-                      autoFit
-                      data={salesData}
-                      xField="x"
-                      yField="y"
-                      xAxis={{
-                        title: null,
-                      }}
-                      yAxis={{
-                        title: null,
-                      }}
-                      meta={{
-                        y: {
-                          alias: '访问量',
-                        },
-                      }}
-                    />
+                    <Echarts option={{
+                      grid: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                      },
+                      xAxis: {
+                        type: 'category',
+                        data: salesData.map(item => item.x),
+                      },
+                      yAxis: {
+                        type: 'value',
+                      },
+                      series: [
+                        {
+                          data: salesData.map(item => item.y),
+                          type: 'bar',
+                          itemStyle: {
+                            color: '#1890FF'
+                          }
+                        }
+                      ]
+                    } as ECOption}>
+                    </Echarts>
                   </div>
                 </Col>
                 <Col xl={8} lg={12} md={12} sm={24} xs={24}>

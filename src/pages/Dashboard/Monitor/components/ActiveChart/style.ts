@@ -2,11 +2,11 @@ import { createStyles } from "antd-style";
 
 export const useStyles = createStyles(({ css }) => {
 
-    const activeChart = css`
+  const activeChart = css`
       position: relative;
     `;
 
-    const activeChartGrid = css`
+  const activeChartGrid = css`
       p {
         position: absolute;
         top: 80px;
@@ -16,7 +16,7 @@ export const useStyles = createStyles(({ css }) => {
       }
     `;
 
-    const activeChartLegend = css`
+  const activeChartLegend = css`
       position: relative;
       height: 20px;
       margin-top: 8px;
@@ -36,12 +36,8 @@ export const useStyles = createStyles(({ css }) => {
       }
     `;
 
-    const dashedLine = css`
-      position: relative;
-      top: -70px;
-      left: -3px;
-      height: 1px;
-      .line {
+
+  const line = css` 
         position: absolute;
         top: 0;
         left: 0;
@@ -49,25 +45,29 @@ export const useStyles = createStyles(({ css }) => {
         height: 100%;
         background-image: linear-gradient(to right, transparent 50%, #e9e9e9 50%);
         background-size: 6px;
+    `;
+
+  const dashedLine = css`
+      position: relative;
+      top: -70px;
+      left: -3px;
+      height: 1px;
+
+      .line{
+        ${line}
       }
+
       :last-child {
         top: -36px;
       }
     `;
 
-    const line = css`
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    `;
 
-    return {
-        activeChart,
-        activeChartGrid,
-        activeChartLegend,
-        dashedLine,
-        line,
-    }
+  return {
+    activeChart,
+    activeChartGrid,
+    activeChartLegend,
+    dashedLine,
+    line,
+  }
 });

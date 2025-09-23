@@ -4,16 +4,34 @@ import type { ECOption } from "@/plugins";
 
 export interface AreaItem {
     name: string;
-    value: number;
+    value: number | string;
 }
 
-export const Area: React.FC<{ height?: number, data: AreaItem[] }> = (props) => {
-    const { height, data } = props;
+
+
+interface TinyAreaProps {
+    height?: number;
+    padding?: number;
+    data: AreaItem[];
+    line?: {
+        color: string;
+    }
+}
+
+
+export const Area: React.FC<TinyAreaProps> = (props) => {
+    const { height, data, padding = 0, line = { color: "transparent" } } = props;
+    const { color: lineColor } = line;
 
     const xAxis = data.map(item => item.name)
-    const yAxis = data.map(item => item.value)
+    const yAxis = data.map(item => Number(item.value))
     const option: ECOption = {
-
+        grid: {
+            left: padding,
+            right: padding,
+            top: padding,
+            bottom: padding,
+        },
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -44,7 +62,7 @@ export const Area: React.FC<{ height?: number, data: AreaItem[] }> = (props) => 
                 stack: 'Total',
                 showSymbol: false,
                 lineStyle: {
-                    color: 'transparent'
+                    color: lineColor
                 },
                 smooth: true,
                 areaStyle: {
