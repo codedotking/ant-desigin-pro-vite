@@ -20,6 +20,6 @@ export default defineConfig(({ command }) => {
       alias: {
         "@": path.resolve(__dirname, './src')
       },
-    }
+    },
   }
 })  

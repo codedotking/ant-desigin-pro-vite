@@ -1,6 +1,6 @@
 import { Card, Col, Row, Statistic } from 'antd';
 import { useEffect, useState, type FC } from 'react';
-import { Gauge, WordCloud } from '@ant-design/charts';
+import { WordCloud } from '@ant-design/charts';
 import Map from './components/Map';
 import ActiveChart from './components/ActiveChart';
 import useStyles from './style';
@@ -8,6 +8,7 @@ import { GridContent } from '@ant-design/pro-components';
 import { format } from 'd3-format';
 import { RingProgress } from '@/components';
 import { tags } from '@/api/tag';
+import Gauge from './components/Charts/Gauge';
 
 const { Timer } = Statistic;
 
@@ -71,35 +72,14 @@ const Monitor: FC = () => {
                             variant='borderless'
                             styles={{ body: { textAlign: 'center' } }}
                         >
-                            <Gauge
-                                height={180}
-                                autoFit
-                                percent={0.87}
-                                range={{
-                                    ticks: [0, 1 / 4, 2 / 4, 3 / 4, 1],
-                                }}
-                                axis={{
-                                    label: {
-                                        formatter: function formatter(v: number) {
-                                            return Number(v) * 100;
-                                        },
-                                    },
-                                }}
-                                statistic={{
-                                    content: {
-                                        content: '优',
-                                        style: {
-                                            color: '#30bf78',
-                                        },
-                                    },
-                                }}
-                            />
+
+                            <Gauge />
                         </Card>
                     </Col>
                 </Row>
                 <Row gutter={24}>
                     <Col xl={12} lg={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
-                        <Card title="各品类占比" variant='borderless' className={styles.pieCard}>
+                        {/* <Card title="各品类占比" variant='borderless' className={styles.pieCard}>
                             <Row style={{ padding: '16px 0' }}>
                                 <Col span={8}>
                                     <RingProgress autoFit height={128} percent={0.28} />
@@ -111,10 +91,10 @@ const Monitor: FC = () => {
                                     <RingProgress color="#2FC25B" autoFit height={128} percent={0.32} />
                                 </Col>
                             </Row>
-                        </Card>
+                        </Card> */}
                     </Col>
                     <Col xl={6} lg={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
-                        <Card
+                        {/* <Card
                             title="热门搜索"
                             loading={loading}
                             variant='borderless'
@@ -131,7 +111,7 @@ const Monitor: FC = () => {
                                     fontSize: [10, 20],
                                 }}
                             />
-                        </Card>
+                        </Card> */}
                     </Col>
                     <Col xl={6} lg={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
                         <Card
