@@ -8,7 +8,7 @@
 import Footer from './Footer';
 import { Question, SelectLang } from './RightContent';
 import { AvatarDropdown, AvatarName } from './RightContent/AvatarDropdown';
-import RingProgress from './RingProgress';
+import RingProgress from './ECharts/RingProgress';
 
 export * from './ECharts';
 

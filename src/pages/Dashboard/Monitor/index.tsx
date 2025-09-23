@@ -79,19 +79,19 @@ const Monitor: FC = () => {
                 </Row>
                 <Row gutter={24}>
                     <Col xl={12} lg={24} sm={24} xs={24} style={{ marginBottom: 24 }}>
-                        {/* <Card title="各品类占比" variant='borderless' className={styles.pieCard}>
+                        <Card title="各品类占比" variant='borderless' className={styles.pieCard}>
                             <Row style={{ padding: '16px 0' }}>
                                 <Col span={8}>
-                                    <RingProgress autoFit height={128} percent={0.28} />
+                                    <RingProgress height={128} percent={0.28} />
                                 </Col>
                                 <Col span={8}>
-                                    <RingProgress color="#5DDECF" autoFit height={128} percent={0.22} />
+                                    <RingProgress  height={128} percent={0.22} />
                                 </Col>
                                 <Col span={8}>
-                                    <RingProgress color="#2FC25B" autoFit height={128} percent={0.32} />
+                                    <RingProgress  height={128} percent={0.32} />
                                 </Col>
                             </Row>
-                        </Card> */}
+                        </Card>
                     </Col>
                     <Col xl={6} lg={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
                         {/* <Card
