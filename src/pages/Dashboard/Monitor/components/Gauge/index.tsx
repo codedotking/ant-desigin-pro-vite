@@ -23,6 +23,9 @@ const Gauge = ({ percent, height }: {
             width: 2
           }
         },
+        axisTick: {
+          show: false
+        },
         axisLabel: {
           distance: -15,
           color: '#464646',
@@ -43,7 +46,6 @@ const Gauge = ({ percent, height }: {
             ]
           }
         },
-
         anchor: {
           show: true,
           showAbove: true,
@@ -59,7 +61,6 @@ const Gauge = ({ percent, height }: {
           length: '80%',
           offsetCenter: [0, 0]
         },
-
         detail: {
           fontSize: 20,
           offsetCenter: [0, '40%'],
@@ -80,7 +81,6 @@ const Gauge = ({ percent, height }: {
             }
           },
         },
-
         data: [
           {
             value: percent,

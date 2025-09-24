@@ -8,7 +8,7 @@ import { GridContent } from '@ant-design/pro-components';
 import { format } from 'd3-format';
 import { RingProgress } from '@/components';
 import { tags } from '@/api/tag';
-import Gauge from './components/Charts/Gauge';
+import Gauge from './components/Gauge';
 
 const { Timer } = Statistic;
 
