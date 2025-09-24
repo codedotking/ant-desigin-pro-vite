@@ -1,3 +1,3 @@
-import echarts, { type ECOption } from "./echarts.ts";
+export * from "./echarts.ts";
 
-export { echarts, type ECOption }
+export * from "./dayjs.ts";
