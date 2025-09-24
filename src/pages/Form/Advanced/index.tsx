@@ -365,19 +365,18 @@ export const AdvancedForm: FC = () => {
                     </Row>
                 </Card>
                 <Card title="成员管理" variant='borderless'>
-                    <ProForm.Item name="members">
-                        <EditableProTable<TableFormDateType>
-                            recordCreatorProps={{
-                                record: () => {
-                                    return {
-                                        key: `0${Date.now()}`,
-                                    };
-                                },
-                            }}
-                            columns={columns}
-                            rowKey="key"
-                        />
-                    </ProForm.Item>
+                    <EditableProTable<TableFormDateType>
+                        name="members"
+                        recordCreatorProps={{
+                            record: () => {
+                                return {
+                                    key: `0${Date.now()}`,
+                                };
+                            },
+                        }}
+                        columns={columns}
+                        rowKey="key"
+                    />
                 </Card>
             </PageContainer>
         </ProForm>
