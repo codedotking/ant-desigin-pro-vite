@@ -1,6 +1,6 @@
 import { Card, Col, Row, Statistic } from 'antd';
 import { useEffect, useState, type FC } from 'react';
-import { WordCloud } from '@ant-design/charts';
+import { Liquid, WordCloud } from '@ant-design/charts';
 import Map from './components/Map';
 import ActiveChart from './components/ActiveChart';
 import useStyles from './style';
@@ -23,7 +23,7 @@ const Monitor: FC = () => {
     useEffect(() => {
         setLoading(true)
         tags().then((res) => {
-            console.log(res);
+            console.log("====================", res);
             setData(res.data)
             setLoading(false)
         }).catch((err) => {
@@ -31,7 +31,10 @@ const Monitor: FC = () => {
             console.log(err);
         })
     }, []);
+
+
     const wordCloudData = data?.list || [];
+
 
     return (
         <GridContent>
@@ -72,8 +75,7 @@ const Monitor: FC = () => {
                             variant='borderless'
                             styles={{ body: { textAlign: 'center' } }}
                         >
-
-                            <Gauge />
+                            <Gauge percent={0.78} height={180} />
                         </Card>
                     </Col>
                 </Row>
@@ -82,19 +84,19 @@ const Monitor: FC = () => {
                         <Card title="各品类占比" variant='borderless' className={styles.pieCard}>
                             <Row style={{ padding: '16px 0' }}>
                                 <Col span={8}>
-                                    <RingProgress height={128} percent={0.28} />
+                                    <RingProgress height={128} percent={0.98} />
                                 </Col>
                                 <Col span={8}>
-                                    <RingProgress  height={128} percent={0.22} />
+                                    <RingProgress height={128} percent={0.88} />
                                 </Col>
                                 <Col span={8}>
-                                    <RingProgress  height={128} percent={0.32} />
+                                    <RingProgress height={128} percent={0.60} />
                                 </Col>
                             </Row>
                         </Card>
                     </Col>
                     <Col xl={6} lg={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
-                        {/* <Card
+                        <Card
                             title="热门搜索"
                             loading={loading}
                             variant='borderless'
@@ -103,15 +105,14 @@ const Monitor: FC = () => {
                             <WordCloud
                                 data={wordCloudData}
                                 autoFit
-                                wordField="name"
-                                weightField="value"
                                 colorField="name"
+                                textField="name"
                                 height={162}
                                 wordStyle={{
                                     fontSize: [10, 20],
                                 }}
                             />
-                        </Card> */}
+                        </Card>
                     </Col>
                     <Col xl={6} lg={12} sm={24} xs={24} style={{ marginBottom: 24 }}>
                         <Card
@@ -119,23 +120,12 @@ const Monitor: FC = () => {
                             variant='borderless'
                             styles={{ body: { textAlign: 'center', fontSize: 0 } }}
                         >
-                            {/* <Liquid
+                            <Liquid
                                 height={161}
                                 percent={0.35}
                                 autoFit
-                                outline={{
-                                    border: 2,
-                                    distance: 4,
-                                }}
                                 padding={[0, 0, 0, 0]}
-                                statistic={{
-                                    content: {
-                                        style: {
-                                            fontSize: '16px',
-                                        },
-                                    },
-                                }}
-                            /> */}
+                            />
                         </Card>
                     </Col>
                 </Row>

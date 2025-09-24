@@ -1,94 +1,95 @@
 import { Echarts } from "@/components";
 import type { ECOption } from "@/plugins";
+import { format } from "d3-format";
 
-const Gauge = () => {
-
+const Gauge = ({ percent, height }: {
+  percent: number;
+  height: number
+}) => {
   const option: ECOption = {
     series: [
       {
         type: 'gauge',
-        startAngle: 180,
-        endAngle: 0,
-        center: ['50%', '75%'],
-        radius: '90%',
+        radius: '70%',
         min: 0,
         max: 1,
-        splitNumber: 8,
-        axisLine: {
-          lineStyle: {
-            width: 6,
-            color: [
-              [0.25, '#FF6E76'],
-              [0.5, '#FDDD60'],
-              [0.75, '#58D9F9'],
-              [1, '#7CFFB2']
-            ]
-          }
-        },
-        pointer: {
-          icon: 'path://M12.8,0.7l12,40.1H0.7L12.8,0.7z',
-          length: '12%',
-          width: 20,
-          offsetCenter: [0, '-60%'],
-          itemStyle: {
-            color: 'auto'
-          }
-        },
-        axisTick: {
-          length: 12,
+        startAngle: 190,
+        endAngle: -10,
+        splitNumber: 5,
+        splitLine: {
+          distance: -20,
           lineStyle: {
             color: 'auto',
             width: 2
           }
         },
-        splitLine: {
-          length: 20,
-          lineStyle: {
-            color: 'auto',
-            width: 5
-          }
-        },
         axisLabel: {
+          distance: -15,
           color: '#464646',
-          fontSize: 20,
-          distance: -60,
           rotate: 'tangential',
-          formatter: function (value: number) {
-            if (value === 0.875) {
-              return 'Grade A';
-            } else if (value === 0.625) {
-              return 'Grade B';
-            } else if (value === 0.375) {
-              return 'Grade C';
-            } else if (value === 0.125) {
-              return 'Grade D';
-            }
-            return '';
+          formatter(value) {
+            return format("0")(value * 100)
           }
         },
-        title: {
-          offsetCenter: [0, '-10%'],
-          fontSize: 20
+        axisLine: {
+          lineStyle: {
+            width: 6,
+            color: [
+              [0.2, '#FF6E76'],
+              [0.4, '#FDDD60'],
+              [0.6, '#58D9F9'],
+              [0.8, '#FF6E76'],
+              [1, '#7CFFB2']
+            ]
+          }
         },
-        detail: {
-          fontSize: 30,
-          offsetCenter: [0, '-35%'],
-          valueAnimation: true,
-          formatter: function (value: number) {
-            return Math.round(value * 100) + '';
+
+        anchor: {
+          show: true,
+          showAbove: true,
+          size: 10,
+          itemStyle: {
+            color: '#FAC858'
           },
-          color: 'inherit'
+          offsetCenter: [0, 0]
         },
+        pointer: {
+          icon: 'path://M2.9,0.7L2.9,0.7c1.4,0,2.6,1.2,2.6,2.6v115c0,1.4-1.2,2.6-2.6,2.6l0,0c-1.4,0-2.6-1.2-2.6-2.6V3.3C0.3,1.9,1.4,0.7,2.9,0.7z',
+          width: 4,
+          length: '80%',
+          offsetCenter: [0, 0]
+        },
+
+        detail: {
+          fontSize: 20,
+          offsetCenter: [0, '40%'],
+          valueAnimation: true,
+          color: 'inherit',
+          formatter(value: number) {
+            // 划分五档
+            if (value >= 0.8) {
+              return '优';
+            } else if (value >= 0.6) {
+              return '良';
+            } else if (value >= 0.4) {
+              return '中';
+            } else if (value >= 0.2) {
+              return '差';
+            } else {
+              return '极差';
+            }
+          },
+        },
+
         data: [
           {
-            value: 0.7,
-            name: 'Grade Rating'
+            value: percent,
           }
         ]
       }
     ]
   }
-  return <Echarts option={option} />
+  return <Echarts style={{ height: height || 300, width: '100%' }} option={option} />
 
 }
 

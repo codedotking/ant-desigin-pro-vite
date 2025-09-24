@@ -1,10 +1,21 @@
 import { echarts, type ECOption } from "@/plugins"
 import type { EChartsReactProps } from "echarts-for-react"
 import EChartsReactCore from "echarts-for-react/lib/core"
+import { useImperativeHandle, useRef, type RefObject } from "react"
 
 export const Echarts = (props: Omit<EChartsReactProps, 'echarts' | 'option'> & {
-    option: ECOption  // 明确要求 option 参数符合 ECOption 类型
+    option: ECOption
     rerender?: boolean
+    ref?: RefObject<EChartsReactCore>
 }) => {
-    return <EChartsReactCore echarts={echarts}  {...props} />
+    const ecRef = useRef<EChartsReactCore>(null)
+    const { ref, opts, ...rest } = props
+
+    // 修复：应该返回 ecRef.current 而不是 ref.current
+    useImperativeHandle(ref, () => ecRef.current!)
+
+    return <EChartsReactCore ref={ecRef} echarts={echarts} opts={{
+        renderer: 'svg',
+        ...opts,
+    }} {...rest} />
 }

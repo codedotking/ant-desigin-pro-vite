@@ -13,7 +13,7 @@ import type {
     PieSeriesOption
 } from 'echarts/charts';
 
-import { CanvasRenderer } from 'echarts/renderers';
+import { CanvasRenderer ,SVGRenderer} from 'echarts/renderers';
 
 import type {
     ComposeOption,
@@ -23,6 +23,7 @@ import type {
 import {
     GridComponent,
     TooltipComponent,
+    
 } from 'echarts/components';
 
 import type {
@@ -45,6 +46,7 @@ export type ECOption = ComposeOption<
 
 // 注册必须的组件
 echarts.use([
+    SVGRenderer,
     CanvasRenderer,
     GridComponent,
     TooltipComponent,

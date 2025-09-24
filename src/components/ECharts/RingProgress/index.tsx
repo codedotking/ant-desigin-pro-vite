@@ -9,14 +9,17 @@ export type RingProgressProps = {
 
 const RingProgress = (props: RingProgressProps) => {
     const { percent } = props;
-
     const option: ECOption = {
+        grid: {
+            top: 0,
+            bottom: 0,
+        },
         series: [
             {
                 type: 'gauge',
                 progress: {
                     show: true,
-                    width: 18
+                    width: 8
                 },
                 axisTick: {
                     show: false
@@ -24,15 +27,29 @@ const RingProgress = (props: RingProgressProps) => {
                 axisLabel: {
                     show: false
                 },
+                pointer: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        width: 8
+                    }
+                },
+                min: 0,
+                max: 1,
+                splitLine: {
+                    show: false
+                },
                 detail: {
-                    valueAnimation: false,
-                    fontSize: 12,
-                    offsetCenter: [0, '70%'],
+                    valueAnimation: true,
+                    fontSize: 18,
+                    fontWeight: 'bolder',
+                    offsetCenter: [0, 0],
                     formatter: (value: number) => format(".0%")(value)
                 },
                 data: [
                     {
-                        value: percent * 100
+                        value: percent
                     }
                 ]
             }
