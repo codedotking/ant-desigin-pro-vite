@@ -1,5 +1,3 @@
-import Analysis from './Analysis'
-import { Monitor } from './Monitor'
-import { Workplace } from './Workplace'
-
-export { Analysis, Monitor, Workplace }
+export * from './Analysis'
+export * from './Monitor'
+export * from './Workplace'

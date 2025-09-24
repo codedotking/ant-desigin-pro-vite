@@ -43,6 +43,33 @@ export default {
                 ],
             },
             {
+                path: '/form',
+                name: '表单页',
+                icon: <CrownFilled />,
+                access: 'canAdmin',
+                component: './Admin',
+                routes: [
+                    {
+                        path: '/form/basic-form',
+                        name: '基础表单',
+                        icon: 'https://gw.alipayobjects.com/zos/antfincdn/upvrAjAPQX/Logo_Tech%252520UI.svg',
+                        component: './Welcome',
+                    },
+                    {
+                        path: '/form/step-form',
+                        name: '分步表单',
+                        icon: <CrownFilled />,
+                        component: './Welcome',
+                    },
+                    {
+                        path: '/form/advanced-form',
+                        name: '高级表单',
+                        icon: <CrownFilled />,
+                        component: './Welcome',
+                    },
+                ],
+            },
+            {
                 path: '/admin',
                 name: '管理页',
                 icon: <CrownFilled />,

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Suspense, useEffect, useState } from 'react';
 import { EllipsisOutlined } from '@ant-design/icons';
 import { Col, Dropdown, Row } from 'antd';
@@ -17,14 +16,10 @@ import type { Dayjs } from 'dayjs';
 import { useStyles } from './style';
 import { fakeChartData } from './data';
 
-type PAGE_NAME_UPPER_CAMEL_CASEProps = {
-  BLOCK_NAME_CAMEL_CASE: AnalysisData;
-  loading: boolean;
-};
 
 type SalesType = 'all' | 'online' | 'stores';
 
-const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
+export const Analysis = () => {
   const { styles } = useStyles();
   const [salesType, setSalesType] = useState<SalesType>('all');
   const [currentTabKey, setCurrentTabKey] = useState<string>('');
@@ -37,7 +32,7 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
     setLoading(true);
     fakeChartData().then((res) => {
       console.log(res);
-      
+
       setData(res);
     }).finally(() => {
       setLoading(false);
@@ -140,5 +135,3 @@ const PAGE_NAME_UPPER_CAMEL_CASE: FC<PAGE_NAME_UPPER_CAMEL_CASEProps> = () => {
     </GridContent>
   );
 };
-
-export default PAGE_NAME_UPPER_CAMEL_CASE;
