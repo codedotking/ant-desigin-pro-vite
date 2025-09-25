@@ -1,4 +1,4 @@
-import { createStyles } from "antd-style";
+import { createStyles, cx } from "antd-style";
 
 
 
@@ -15,7 +15,7 @@ export const useStyles = createStyles(({ token, css, prefixCls }) => {
     `
 
 
-    console.log(`${prefixCls}-${title.name}`);
+
 
     const wrap = css`
         color: ${token.colorPrimary};
@@ -27,9 +27,18 @@ export const useStyles = createStyles(({ token, css, prefixCls }) => {
             }
         }
     `
+
+
+    const test = cx( prefixCls, css`
+        color: ${token.colorPrimary};
+        font-style: normal;
+    `)
+
+    console.log(`${test}`);
     return {
-        wrap,
+        wrap,   
         title,
-        box
+        box,
+        test
     }
 });  
