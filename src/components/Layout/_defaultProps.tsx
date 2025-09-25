@@ -146,6 +146,12 @@ export default {
                 name: 'Ant Design 官网外链',
                 icon: <ChromeFilled />,
             },
+            {
+                path: '/test',
+                name: '测试页',
+                icon: <SmileFilled />,
+                component: './Welcome',
+            },
         ],
     },
     location: {

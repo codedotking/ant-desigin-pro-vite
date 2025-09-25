@@ -5,6 +5,7 @@ import Home from '@/pages/Home'
 import NoFoundPage from '@/pages/404'
 import { Analysis, Monitor, Workplace } from '@/pages/Dashboard'
 import { AdvancedForm, StepForm, BasicForm } from '@/pages/Form'
+import { Test } from '@/pages/Test'
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Navigate to="/welcome" replace />
+      },
+      {
+        path: 'test',
+        element: <Test />
       },
       {
         path: 'dashboard',

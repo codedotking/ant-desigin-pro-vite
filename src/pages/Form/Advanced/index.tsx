@@ -59,6 +59,8 @@ interface ErrorField {
 
 export const AdvancedForm: FC = () => {
     const { styles } = useStyles();
+    console.log(styles);
+
     const [error, setError] = useState<ErrorField[]>([]);
     const getErrorInfo = (errors: ErrorField[]) => {
         const errorCount = errors.filter((item) => item.errors.length > 0).length;
@@ -79,33 +81,35 @@ export const AdvancedForm: FC = () => {
             return (
                 <li key={key} className={styles.errorListItem} onClick={() => scrollToField(key)}>
                     <CloseCircleOutlined className={styles.errorIcon} />
-                    <div >{err.errors[0]}</div>
-                    <div className={styles.errorField}>
-                        {fieldLabels[key]}
+                    <div>
+                        <div >{err.errors[0]}</div>
+                        <div className={styles.errorField}>
+                            {fieldLabels[key]}
+                        </div>
                     </div>
                 </li>
             );
         });
         return (
-            <span className={styles.errorIcon}>
-                <Popover
-                    title="表单校验信息"
-                    content={errorList}
-                    classNames={{
-                        root: styles.errorPopover
-                    }}
-                    trigger="click"
-                    getPopupContainer={(trigger: HTMLElement) => {
-                        if (trigger && trigger.parentNode) {
-                            return trigger.parentNode as HTMLElement;
-                        }
-                        return trigger;
-                    }}
-                >
+            <Popover
+                title="表单校验信息"
+                content={errorList}
+                classNames={{
+                    root: styles.errorPopover
+                }}
+                trigger="click"
+                getPopupContainer={(trigger: HTMLElement) => {
+                    if (trigger && trigger.parentNode) {
+                        return trigger.parentNode as HTMLElement;
+                    }
+                    return trigger;
+                }}
+            >
+                <div className={styles.errorIcon}>
                     <CloseCircleOutlined />
-                </Popover>
-                {errorCount}
-            </span>
+                    <span>{errorCount}</span>
+                </div>
+            </Popover>
         );
     };
 
