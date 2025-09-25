@@ -142,6 +142,26 @@ export default {
                 ],
             },
             {
+                name: '结果页',
+                icon: <TabletFilled />,
+                path: '/result',
+                component: './ListTableList',
+                routes: [
+                    {
+                        path: '/result/success',
+                        name: '成功页面',
+                        icon: <CrownFilled />,
+                        component: './Success',
+                    },
+                    {
+                        path: '/result/fail',
+                        name: '失败页面',
+                        icon: <CrownFilled />,
+                        component: './Fail',
+                    },
+                ],
+            },
+            {
                 path: 'https://ant.design',
                 name: 'Ant Design 官网外链',
                 icon: <ChromeFilled />,
