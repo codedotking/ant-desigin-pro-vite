@@ -2,11 +2,12 @@ import { createBrowserRouter, Navigate } from 'react-router-dom'
 import { Layout } from '@/components/Layout'
 import Login from '@/pages/Login'
 import Home from '@/pages/Home'
-import { NoFoundPage } from '@/pages/Exception'
+import { NoFoundPage, ServerErrorPage } from '@/pages/Exception'
 import { Analysis, Monitor, Workplace } from '@/pages/Dashboard'
 import { AdvancedForm, StepForm, BasicForm } from '@/pages/Form'
 import { Test } from '@/pages/Test'
 import { FailPage, SuccessPage } from '@/pages/Result'
+import ForbiddenPage from '@/pages/Exception/403'
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,22 @@ export const router = createBrowserRouter([
       {
         path: 'dashboard/workplace',
         element: <Workplace />
+      },
+      {
+        path: 'exception',
+        element: <Navigate to="/exception/403" replace />
+      },
+      {
+        path: 'exception/403',
+        element: <ForbiddenPage />
+      },
+      {
+        path: 'exception/404',
+        element: <NoFoundPage />
+      },
+      {
+        path: 'exception/500',
+        element: <ServerErrorPage />
       },
       {
         path: 'form',

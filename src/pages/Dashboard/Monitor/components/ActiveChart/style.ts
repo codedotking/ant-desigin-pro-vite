@@ -53,9 +53,6 @@ export const useStyles = createStyles(({ css }) => {
       left: -3px;
       height: 1px;
 
-      .line{
-        ${line}
-      }
 
       :last-child {
         top: -36px;

@@ -1,21 +1,21 @@
-import { Button, Card, Result } from 'antd';
+import { Button, Result } from 'antd';
+import { Link } from 'react-router-dom';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 
 const NoFoundPage: React.FC = () => {
-    const navigate = useNavigate();
-    return <Card variant="borderless">
-        <Result
-            status="404"
-            title="404"
-            subTitle="页面不存在"
-            extra={
-                <Button type="primary" onClick={() => navigate('/')}>
-                    返回首页
-                </Button>
-            }
-        />
-    </Card>
+    return <Result
+        status="500"
+        title="500"
+        style={{
+            background: 'none',
+        }}
+        subTitle="Sorry, the server is reporting an error."
+        extra={
+            <Link to="/">
+                <Button type="primary">Back Home</Button>
+            </Link>
+        }
+    />
 };
 
 export default NoFoundPage;

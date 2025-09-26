@@ -9,40 +9,39 @@ import useStyles from './style';
 import { getActivities, getFakeChartData, getProjectNotice } from '@/api/workplace';
 import { dayjs } from '@/plugins';
 
-const links = [
-  {
-    title: '操作一',
-    href: '',
-  },
-  {
-    title: '操作二',
-    href: '',
-  },
-  {
-    title: '操作三',
-    href: '',
-  },
-  {
-    title: '操作四',
-    href: '',
-  },
-  {
-    title: '操作五',
-    href: '',
-  },
-  {
-    title: '操作六',
-    href: '',
-  },
+// 快速导航链接配置
+const QUICK_LINKS = [
+  { title: '操作一', href: '' },
+  { title: '操作二', href: '' },
+  { title: '操作三', href: '' },
+  { title: '操作四', href: '' },
+  { title: '操作五', href: '' },
+  { title: '操作六', href: '' },
 ];
 
+// 当前用户信息配置
+const CURRENT_USER: Partial<CurrentUser> = {
+  avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
+  name: '吴彦祖',
+  userid: '00000001',
+  email: 'antdesign@alipay.com',
+  signature: '海纳百川，有容乃大',
+  title: '交互专家',
+  group: '蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED',
+};
+
+/**
+ * 页面头部内容组件
+ * 显示用户头像、姓名、职位等信息
+ */
 const PageHeaderContent: FC<{ currentUser: Partial<CurrentUser> }> = ({ currentUser }) => {
   const { styles } = useStyles();
 
-  const loading = currentUser && Object.keys(currentUser).length;
-  if (!loading) {
+  // 如果用户信息不存在或为空，显示骨架屏
+  if (!currentUser || !Object.keys(currentUser).length) {
     return <Skeleton avatar paragraph={{ rows: 1 }} active />;
   }
+
   return (
     <div className={styles.pageHeaderContent}>
       <div className={styles.avatar}>
@@ -50,20 +49,23 @@ const PageHeaderContent: FC<{ currentUser: Partial<CurrentUser> }> = ({ currentU
       </div>
       <div className={styles.content}>
         <div className={styles.contentTitle}>
-          早安，
-          {currentUser.name}
-          ，祝你开心每一天！
+          早安，{currentUser.name}，祝你开心每一天！
         </div>
         <div>
-          {currentUser.title} |{currentUser.group}
+          {currentUser.title} | {currentUser.group}
         </div>
       </div>
     </div>
   );
 };
 
-const ExtraContent = () => {
+/**
+ * 页面头部额外内容组件
+ * 显示统计数据：项目数、团队排名、项目访问量
+ */
+const ExtraContent: FC = () => {
   const { styles } = useStyles();
+  
   return (
     <div className={styles.extraContent}>
       <div className={styles.statItem}>
@@ -79,49 +81,63 @@ const ExtraContent = () => {
   );
 };
 
-const Workplace: FC = () => {
+/**
+ * 工作台页面主组件
+ * 展示项目列表、动态信息、统计数据等
+ */
+export const Workplace: FC = () => {
   const { styles } = useStyles();
-  const [projectNotice, setProjectNotice] = useState<NoticeType[]>([]);
-  const [activities, setActivities] = useState<ActivitiesType[]>([]);
-  const [data, setData] = useState<AnalysisData>();
-  const [loading, setLoading] = useState(true);
+  
+  // 状态管理
+  const [projectNotice, setProjectNotice] = useState<NoticeType[]>([]); // 项目通知列表
+  const [activities, setActivities] = useState<ActivitiesType[]>([]); // 动态列表
+  const [data, setData] = useState<AnalysisData>(); // 图表数据
+  const [loading, setLoading] = useState(true); // 加载状态
 
+  // 数据获取
   useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const projectNotice = await getProjectNotice();
-        const activities = await getActivities();
-        const data = await getFakeChartData();
-        setProjectNotice(projectNotice.data);
-        setActivities(activities.data);
-        setData(data.data);
-        setLoading(false);
-      } catch {
+        // 并行请求三个接口，提升性能
+        const [projectNoticeRes, activitiesRes, dataRes] = await Promise.all([
+          getProjectNotice(),
+          getActivities(),
+          getFakeChartData(),
+        ]);
+        
+        // 更新状态
+        setProjectNotice(projectNoticeRes.data);
+        setActivities(activitiesRes.data);
+        setData(dataRes.data);
+      } catch (error) {
+        console.error('Failed to fetch workplace data:', error);
+      } finally {
         setLoading(false);
       }
-    }
+    };
+
     fetchData();
   }, []);
 
-
-
+  /**
+   * 渲染动态列表项
+   * 解析模板字符串中的占位符，生成可点击的链接
+   */
   const renderActivities = (item: ActivitiesType) => {
-
+    // 解析模板字符串，将 @{key} 格式的占位符替换为对应的链接
     const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
       const item_ = item[key as keyof ActivitiesType];
+      // 如果是对象且包含 link 和 name 属性，渲染为链接
       if (item_ && typeof item_ === 'object' && 'link' in item_ && 'name' in item_) {
         return (
-          <a href={item_.link}
-            key={item_.name}>
+          <a href={item_.link} key={item_.name}>
             {item_.name}
           </a>
         );
       }
       return key;
     });
-
-
 
     return (
       <List.Item key={item.id}>
@@ -146,23 +162,13 @@ const Workplace: FC = () => {
 
   return (
     <PageContainer
-      content={
-        <PageHeaderContent
-          currentUser={{
-            avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
-            name: '吴彦祖',
-            userid: '00000001',
-            email: 'antdesign@alipay.com',
-            signature: '海纳百川，有容乃大',
-            title: '交互专家',
-            group: '蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED',
-          }}
-        />
-      }
+      content={<PageHeaderContent currentUser={CURRENT_USER} />}
       extraContent={<ExtraContent />}
     >
       <Row gutter={24}>
+        {/* 左侧主要内容区域 */}
         <Col xl={16} lg={24} md={24} sm={24} xs={24}>
+          {/* 进行中的项目卡片 */}
           <Card
             className={styles.projectList}
             style={{ marginBottom: 24 }}
@@ -174,7 +180,6 @@ const Workplace: FC = () => {
           >
             {projectNotice.map((item: NoticeType) => (
               <Card.Grid className={styles.projectGrid} key={item.id}>
-                {/* <Card styles={{ body: { padding: 0 } }} variant="borderless" > */}
                 <Card.Meta
                   title={
                     <div className={styles.cardTitle}>
@@ -184,7 +189,6 @@ const Workplace: FC = () => {
                   }
                   description={item.description}
                 />
-
                 <div className={styles.projectItemContent}>
                   <Link to={item.memberLink}>{item.member || ''}</Link>
                   {item.updatedAt && (
@@ -193,10 +197,11 @@ const Workplace: FC = () => {
                     </span>
                   )}
                 </div>
-                {/* </Card> */}
               </Card.Grid>
             ))}
           </Card>
+          
+          {/* 动态列表卡片 */}
           <Card
             styles={{ body: { padding: 0 } }}
             variant="borderless"
@@ -213,21 +218,25 @@ const Workplace: FC = () => {
             />
           </Card>
         </Col>
+        
+        {/* 右侧侧边栏区域 */}
         <Col xl={8} lg={24} md={24} sm={24} xs={24}>
+          {/* 快速导航卡片 */}
           <Card
             style={{ marginBottom: 24 }}
             title="快速开始 / 便捷导航"
             variant="borderless"
             styles={{ body: { padding: 0 } }}
           >
-            <EditableLinkGroup onAdd={() => { }} links={links} linkElement={Link} />
+            <EditableLinkGroup onAdd={() => {}} links={QUICK_LINKS} linkElement={Link} />
           </Card>
+          
+          {/* 雷达图卡片 */}
           <Card
             style={{ marginBottom: 24 }}
             variant="borderless"
-            // styles={{ body: { padding: 0 } }}
             title="XX 指数"
-            loading={data?.radarData?.length === 0}
+            loading={!data?.radarData?.length}
           >
             <div className={styles.chart}>
               <Radar
@@ -243,6 +252,8 @@ const Workplace: FC = () => {
               />
             </div>
           </Card>
+          
+          {/* 团队成员卡片 */}
           <Card
             styles={{ body: { paddingTop: 12, paddingBottom: 12 } }}
             variant="borderless"
@@ -266,8 +277,4 @@ const Workplace: FC = () => {
       </Row>
     </PageContainer>
   );
-};
-
-export {
-  Workplace
 };

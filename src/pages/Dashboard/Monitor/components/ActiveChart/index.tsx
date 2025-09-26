@@ -25,11 +25,10 @@ const ActiveChart = () => {
   const requestRef = useRef<number | undefined>(undefined);
 
 
-
   useEffect(() => {
 
     console.log([...activeData].sort());
-    
+
     const loopData = () => {
       requestRef.current = requestAnimationFrame(() => {
         timerRef.current = window.setTimeout(() => {

@@ -2,20 +2,20 @@ import { Button, Result } from 'antd';
 import { Link } from 'react-router-dom';
 import React from 'react';
 
-const ServerErrorPage: React.FC = () => {
+const ForbiddenPage: React.FC = () => {
     return <Result
-        status="500"
-        title="500"
+        status="403"
+        title="403"
         style={{
             background: 'none',
         }}
-        subTitle="Sorry, the server is reporting an error."
+        subTitle="Sorry, you don't have access to this page."
         extra={
             <Link to="/">
-                <Button type="primary">Back Home</Button>
+                <Button type="primary">Back to home</Button>
             </Link>
         }
     />
 };
 
-export default ServerErrorPage;
+export default ForbiddenPage;

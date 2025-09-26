@@ -1,8 +1,10 @@
 import {
+    CheckCircleOutlined,
     ChromeFilled,
     CrownFilled,
     SmileFilled,
     TabletFilled,
+    WarningOutlined,
 } from '@ant-design/icons';
 
 export default {
@@ -143,7 +145,7 @@ export default {
             },
             {
                 name: '结果页',
-                icon: <TabletFilled />,
+                icon: <CheckCircleOutlined />,
                 path: '/result',
                 component: './ListTableList',
                 routes: [
@@ -160,6 +162,29 @@ export default {
                         component: './Fail',
                     },
                 ],
+            },
+            {
+                path: '/exception',
+                name: '异常页',
+                icon: <WarningOutlined />,
+                component: './Exception',
+                routes: [
+                    {
+                        path: '/exception/403',
+                        name: '403',
+                        component: './ForbiddenPage',
+                    },
+                    {
+                        path: '/exception/404',
+                        name: '404',
+                        component: './NoFoundPage',
+                    },
+                    {
+                        path: '/exception/500',
+                        name: '500',
+                        component: './ServerErrorPage',
+                    }
+                ]
             },
             {
                 path: 'https://ant.design',

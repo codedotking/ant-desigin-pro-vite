@@ -84,13 +84,13 @@ const Monitor: FC = () => {
                         <Card title="各品类占比" variant='borderless' className={styles.pieCard}>
                             <Row style={{ padding: '16px 0' }}>
                                 <Col span={8}>
-                                    <RingProgress height={128} percent={0.98} />
+                                    <RingProgress height={136} percent={0.98} />
                                 </Col>
                                 <Col span={8}>
-                                    <RingProgress height={128} percent={0.88} />
+                                    <RingProgress height={136} percent={0.88} />
                                 </Col>
                                 <Col span={8}>
-                                    <RingProgress height={128} percent={0.60} />
+                                    <RingProgress height={136} percent={0.60} />
                                 </Col>
                             </Row>
                         </Card>

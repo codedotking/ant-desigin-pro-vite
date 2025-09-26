@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
                 {
                     key: 'github',
                     title: <GithubOutlined />,
-                    href: 'https://github.com/ant-design/ant-design-pro',
+                    href: 'https://github.com/codedotking/ant-desigin-pro-vite',
                     blankTarget: true,
                 },
                 {
