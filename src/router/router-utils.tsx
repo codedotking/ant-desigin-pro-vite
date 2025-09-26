@@ -1,5 +1,5 @@
 import { PageLoading } from '@ant-design/pro-components'
-import { Suspense } from 'react'
+import { lazy, Suspense } from 'react'
 import type { ExtendedRouteObject } from './types'
 
 // 路由转换器：将配置转换为 React Router 格式
