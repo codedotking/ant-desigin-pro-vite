@@ -178,3 +178,5 @@ export const BasicForm: FC = () => {
         </PageContainer>
     );
 };
+
+export default BasicForm

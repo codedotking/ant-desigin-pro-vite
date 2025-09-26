@@ -45,7 +45,7 @@ const ChildrenRender: React.FC = () => {
 }
 
 
-export function Layout() {
+export default function Layout() {
   const settings = useAppSettings()
   const currentUser = useUser()
 
@@ -159,7 +159,6 @@ export function Layout() {
     </ProConfigProvider>
   )
 }
-
 
 
 export const SearchInput = () => {

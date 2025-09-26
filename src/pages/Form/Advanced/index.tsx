@@ -386,3 +386,5 @@ export const AdvancedForm: FC = () => {
         </ProForm>
     );
 };
+
+export default AdvancedForm;

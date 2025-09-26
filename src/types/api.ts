@@ -17,6 +17,8 @@ export type UserInfo = Partial<{
   name: string;
   avatar: string;
   userid: string;
+  role: string;
+  permissions: string[];
   email: string;
   signature: string;
   title: string;

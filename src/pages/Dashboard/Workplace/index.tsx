@@ -65,7 +65,7 @@ const PageHeaderContent: FC<{ currentUser: Partial<CurrentUser> }> = ({ currentU
  */
 const ExtraContent: FC = () => {
   const { styles } = useStyles();
-  
+
   return (
     <div className={styles.extraContent}>
       <div className={styles.statItem}>
@@ -85,9 +85,9 @@ const ExtraContent: FC = () => {
  * 工作台页面主组件
  * 展示项目列表、动态信息、统计数据等
  */
-export const Workplace: FC = () => {
+const Workplace: FC = () => {
   const { styles } = useStyles();
-  
+
   // 状态管理
   const [projectNotice, setProjectNotice] = useState<NoticeType[]>([]); // 项目通知列表
   const [activities, setActivities] = useState<ActivitiesType[]>([]); // 动态列表
@@ -105,7 +105,7 @@ export const Workplace: FC = () => {
           getActivities(),
           getFakeChartData(),
         ]);
-        
+
         // 更新状态
         setProjectNotice(projectNoticeRes.data);
         setActivities(activitiesRes.data);
@@ -200,7 +200,7 @@ export const Workplace: FC = () => {
               </Card.Grid>
             ))}
           </Card>
-          
+
           {/* 动态列表卡片 */}
           <Card
             styles={{ body: { padding: 0 } }}
@@ -218,7 +218,7 @@ export const Workplace: FC = () => {
             />
           </Card>
         </Col>
-        
+
         {/* 右侧侧边栏区域 */}
         <Col xl={8} lg={24} md={24} sm={24} xs={24}>
           {/* 快速导航卡片 */}
@@ -228,9 +228,9 @@ export const Workplace: FC = () => {
             variant="borderless"
             styles={{ body: { padding: 0 } }}
           >
-            <EditableLinkGroup onAdd={() => {}} links={QUICK_LINKS} linkElement={Link} />
+            <EditableLinkGroup onAdd={() => { }} links={QUICK_LINKS} linkElement={Link} />
           </Card>
-          
+
           {/* 雷达图卡片 */}
           <Card
             style={{ marginBottom: 24 }}
@@ -252,7 +252,7 @@ export const Workplace: FC = () => {
               />
             </div>
           </Card>
-          
+
           {/* 团队成员卡片 */}
           <Card
             styles={{ body: { paddingTop: 12, paddingBottom: 12 } }}
@@ -278,3 +278,6 @@ export const Workplace: FC = () => {
     </PageContainer>
   );
 };
+
+
+export default Workplace;

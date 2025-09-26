@@ -46,7 +46,7 @@ const Content = () => {
     </Fragment>
 };
 
-const SuccessPage = () => {
+export const SuccessPage = () => {
     return <GridContent>
         <Card variant='borderless'>
             <Result
@@ -66,6 +66,4 @@ const SuccessPage = () => {
     </GridContent>
 }
 
-export {
-    SuccessPage
-};
+export default SuccessPage

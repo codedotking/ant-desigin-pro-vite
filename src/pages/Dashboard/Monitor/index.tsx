@@ -134,4 +134,4 @@ const Monitor: FC = () => {
     );
 };
 
-export { Monitor };
+export default Monitor;

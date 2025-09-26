@@ -195,3 +195,5 @@ export const StepForm: React.FC = () => {
   );
 };
 
+
+export default StepForm

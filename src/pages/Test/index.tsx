@@ -6,7 +6,7 @@ export const Test = () => {
 
 
     console.log(dayjs().subtract(2819, 'day').format('YYYY-MM'));
-    
+
 
 
 
@@ -19,3 +19,5 @@ export const Test = () => {
         </div>
     </div>
 }
+
+export default Test;
