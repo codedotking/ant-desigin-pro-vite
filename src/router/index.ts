@@ -1,5 +1,6 @@
 // 路由模块统一导出
-export { ROUTES, routeConfig } from './config'
+export { routeConfig } from './config'
+export { ROUTES, ROUTE_GROUPS, BREADCRUMB_CONFIG } from './constants'
 export { default as Router } from './Router'
 export { useRouter, useRouteGuard, useBreadcrumb } from './hooks'
 export { 

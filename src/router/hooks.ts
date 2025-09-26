@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useCallback } from 'react'
-import { ROUTES } from './config'
+import { ROUTES } from './constants'
 import { buildFullUrl, routeHistory } from './utils'
 import type { NavigationOptions } from './types'
 

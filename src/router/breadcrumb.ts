@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom'
 import { useCallback, useMemo } from 'react'
-import { BREADCRUMB_CONFIG, ROUTES } from './config'
+import { BREADCRUMB_CONFIG, ROUTES } from './constants'
 import type { BreadcrumbItem } from './types'
 
 // 面包屑导航 Hook

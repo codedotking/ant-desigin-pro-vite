@@ -1,4 +1,4 @@
-import { ROUTES } from './config'
+import { ROUTES } from './constants'
 import type { GuardConfig, PermissionCheckResult } from './types'
 
 // 权限检查工具函数

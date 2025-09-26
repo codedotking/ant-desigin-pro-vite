@@ -1,6 +1,7 @@
 import { PageLoading } from '@ant-design/pro-components'
 import { Suspense, lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
+import type { RouteObject } from 'react-router-dom'
 import { AuthGuard, PublicGuard } from './guards'
 import { routeConfig } from './config'
 import { transformRoutes } from './router-utils'
@@ -25,7 +26,7 @@ const Router = createBrowserRouter([
         </AuthGuard>
       </Suspense>
     ),
-    children: transformRoutes(routeConfig[0].children || []) as any
+    children: transformRoutes(routeConfig[0].children || []) as RouteObject[]
   },
   {
     path: '/user/login',

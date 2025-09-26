@@ -1,4 +1,4 @@
-import { ROUTES } from './config'
+import { ROUTES } from './constants'
 import type { NavigationOptions, RouteCacheItem, PreloadConfig } from './types'
 
 // 路由工具函数

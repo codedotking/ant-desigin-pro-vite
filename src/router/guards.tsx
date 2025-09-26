@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useIsLoggedIn, useUser } from '@/stores/user'
-import { ROUTES } from './config'
+import { ROUTES } from './constants'
 import { usePermissionCheck } from './guards-hooks'
 import type { GuardConfig } from './types'
 
